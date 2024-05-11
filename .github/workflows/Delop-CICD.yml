@@ -28,7 +28,7 @@ jobs:
 
       # 테스트서버의 application-secret.yml생성
       - name: make application-secret.yml(DEVELOP)
-        if: github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/develop'
         run: |
           # spring의 resources 경로로 이동
           cd ./src/main/resources
@@ -45,7 +45,7 @@ jobs:
 
       # 테스트서버의 application.yml생성
       - name: make application.yml(DEVELOP)
-        if: github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/develop'
         run: |
           # spring의 resources 경로로 이동
           cd ./src/main/resources
