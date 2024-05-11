@@ -132,7 +132,7 @@ jobs:
           key: ${{ secrets.MAIN_SPRING_EC2_2_SSH_KEY }}
           script_stop: true
           script: |
-            sudo docker pull ${{ secrets.DOCKER_USERNAME }}/hallym-festiva-image:latest
+            sudo docker pull ${{ secrets.DOCKER_USERNAME }}/hallym-festival-image:latest
             sudo docker-compose -f docker-compose-${{env.TARGET_UPSTREAM}}.yml up -d
 
 
