@@ -1,5 +1,5 @@
 FROM openjdk:11
-ARG JAR_FILE=build/libs/Hallym-Festival-2024-BackEnd.jar
+ARG JAR_FILE=build/libs/Hallym-Festival-2024-BackEnd-0.0.1-SNAPSHOT.jar
 ARG PROFILES
 ARG ENV
 ARG PORT
