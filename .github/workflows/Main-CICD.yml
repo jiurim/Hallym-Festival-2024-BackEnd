@@ -1,0 +1,182 @@
+name: CD with Gradle
+
+# 언제 이 파일의 내용이 실행될 것인지 정의합니다..
+# 여기서는 main 브랜치에 코드가 push 되거나 pull_request되었을 때 실행할 것을 말하고 있습니다.
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+# 코드의 내용을 이 파일을 실행하여 action을 수행하는 주체(Github Actions에서 사용하는 VM)가 읽을 수 있도록 허용합니다.
+permissions:
+  contents: read
+
+# 실제 실행될 내용들을 정의합니다.
+jobs:
+  build:
+    runs-on: ubuntu-latest # ubuntu 최신 버전에서 script를 실행
+
+    steps:
+      # 지정한 저장소(현재 REPO)에서 코드를 워크플로우 환경으로 가져오도록 하는 github action
+      - uses: actions/checkout@v3
+
+      # open jdk 11 버전 환경을 세팅
+      - name: Set up JDK 11 (MAIN)
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: "adopt"
+
+      # application-secret.yml생성
+      - name: make application-secret.yml (MAIN)
+        if: github.ref == 'refs/heads/main'
+        run: |
+          # spring의 resources 경로로 이동
+          cd ./src/main/resources
+          
+          # 해당 디렉토리에 application-secret.yml 파일이 이미 존재하는지 확인하고, 없으면 생성합니다.
+          if [ ! -f application-secret.yml ]; then
+          touch ./application-secret.yml
+          fi
+          
+          # GitHub Actions에서 설정한 값을 base64 디코딩하여 application-secret.yml 파일에 쓰기
+          echo "copy properties"
+          echo "${{ secrets.APPLICATION_SECRET_YML }}" | base64 --decode > ./application-secret.yml
+        shell: bash
+
+      # application.yml생성
+      - name: make application.yml (MAIN)
+        if: github.ref == 'refs/heads/main'
+        run: |
+          # spring의 resources 경로로 이동
+          cd ./src/main/resources
+          
+          # 해당 디렉토리에 application.yml 파일이 이미 존재하는지 확인하고, 없으면 생성합니다.
+          if [ ! -f application.yml ]; then
+          touch ./application.yml
+          fi
+          
+          # GitHub Actions에서 설정한 값을 base64 디코딩하여 application.yml 파일에 쓰기
+          echo "copy properties"
+          echo "${{ secrets.APPLICATION_YML }}" | base64 --decode > ./application.yml
+        shell: bash
+
+      # Gradle을 사용하여 소스를 빌드
+      - name: Build with Gradle (MAIN)
+        run: |
+          chmod +x ./gradlew
+          ./gradlew clean build -x test
+
+      # Docker Hub에 로그인
+      - name: Login to Docker Hub (MAIN)
+        uses: docker/login-action@v3.1.0
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      # Docker 이미지를 빌드.
+      - name: Build Docker (MAIN)
+        run: docker build --platform linux/amd64 -t ${{ secrets.DOCKER_USERNAME }}/hallym-festival-image .
+
+      # Docker 이미지를 Docker Hub에 푸시합니다
+      - name: Push Docker (MAIN)
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/hallym-festival-image:latest
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      # 대상 IP를 설정
+      - name: Set target IP (MAIN)
+        run: |
+          STATUS=$(curl -o /dev/null -w "%{http_code}" "http://${{ secrets.MAIN_NGINX_EC2_IP }}/api/env")
+          echo $STATUS
+          if [ $STATUS = 200 ]; then
+            CURRENT_UPSTREAM=$(curl -s "http://${{ secrets.MAIN_NGINX_EC2_IP }}/api/env")
+          else
+            CURRENT_UPSTREAM=green
+          fi
+          echo CURRENT_UPSTREAM=$CURRENT_UPSTREAM >> $GITHUB_ENV
+          if [ $CURRENT_UPSTREAM = blue ]; then
+            echo "CURRENT_PORT1=8080" >> $GITHUB_ENV     
+            echo "STOPPED_PORT1=8081" >> $GITHUB_ENV
+            echo "TARGET_UPSTREAM=green" >> $GITHUB_ENV
+          elif [ $CURRENT_UPSTREAM = green ]; then
+            echo "CURRENT_PORT1=8081" >> $GITHUB_ENV
+            echo "STOPPED_PORT1=8080" >> $GITHUB_ENV
+            echo "TARGET_UPSTREAM=blue" >> $GITHUB_ENV
+          else
+            echo "error"
+            exit 1
+          fi
+
+      # Docker Compose를 사용하여 컨테이너를 배포1
+      - name: Docker compose (MAIN)
+        uses: appleboy/ssh-action@master
+        with:
+          username: ubuntu
+          host: ${{ secrets.MAIN_SPRING_EC2_1_IP }}
+          key: ${{ secrets.MAIN_SPRING_EC2_1_SSH_KEY }}
+          script_stop: true
+          script: |
+            sudo docker pull ${{ secrets.DOCKER_USERNAME }}/hallym-festival-image:latest
+            sudo docker-compose -f docker-compose-${{env.TARGET_UPSTREAM}}.yml up -d
+
+      # Docker Compose를 사용하여 컨테이너를 배포2
+      - name: Docker compose (MAIN)
+        uses: appleboy/ssh-action@master
+        with:
+          username: ubuntu
+          host: ${{ secrets.MAIN_SPRING_EC2_2_IP }}
+          key: ${{ secrets.MAIN_SPRING_EC2_2_SSH_KEY }}
+          script_stop: true
+          script: |
+            sudo docker pull ${{ secrets.DOCKER_USERNAME }}/hallym-festiva-image:latest
+            sudo docker-compose -f docker-compose-${{env.TARGET_UPSTREAM}}.yml up -d
+
+
+      # 배포된 서버 URL을 확인
+      - name: Check deploy server URL (MAIN)
+        uses: jtalk/url-health-check-action@v3
+        with:
+          url: http://${{ secrets.MAIN_NGINX_EC2_IP }}:${{env.STOPPED_PORT}}/api/env
+          max-attempts: 5
+          retry-delay: 10s
+
+      # Nginx의 upstream을 변경1
+      - name: Change nginx upstream (MAIN)
+        uses: appleboy/ssh-action@master
+        with:
+          username: ubuntu
+          host: ${{ secrets.MAIN_NGINX_EC2_IP }}
+          key: ${{ secrets.MAIN_NGINX_EC2_SSH_KEY }}
+          script_stop: true
+          script: |
+            sudo docker exec -i nginxServer bash -c 'echo "set \$service_url ${{ env.TARGET_UPSTREAM }};" > /etc/nginx/conf.d/service-env.inc && nginx -s reload' 
+
+
+      # 현재 서버를 중지1
+      - name: Stop current server (MAIN)
+        uses: appleboy/ssh-action@master
+        with:
+          username: ubuntu
+          host: ${{ secrets.MAIN_SPRING_EC2_1_IP }}
+          key: ${{ secrets.MAIN_SPRING_EC2_1_SSH_KEY }}
+          script_stop: true
+          script: |
+            sudo docker stop ${{env.CURRENT_UPSTREAM}} 
+            sudo docker rm ${{env.CURRENT_UPSTREAM}}
+
+      # 현재 서버를 중지2
+      - name: Stop current server (MAIN)
+        uses: appleboy/ssh-action@master
+        with:
+          username: ubuntu
+          host: ${{ secrets.MAIN_SPRING_EC2_2_IP }}
+          key: ${{ secrets.MAIN_SPRING_EC2_2_SSH_KEY }}
+          script_stop: true
+          script: |
+            sudo docker stop ${{env.CURRENT_UPSTREAM}} 
+            sudo docker rm ${{env.CURRENT_UPSTREAM}}
+
