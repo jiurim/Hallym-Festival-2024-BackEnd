@@ -1,27 +1,28 @@
 plugins {
-	id 'org.springframework.boot' version '2.7.6'
-	id 'io.spring.dependency-management' version '1.0.14.RELEASE'
-	id 'java'
+   id 'org.springframework.boot' version '2.7.6'
+   id 'io.spring.dependency-management' version '1.0.14.RELEASE'
+   id 'java'
 }
 
 group = 'com.hallym-festival'
 version = '0.0.1-SNAPSHOT'
 
 java {
-	sourceCompatibility = '11'
+   sourceCompatibility = '11'
 }
 
 configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
-	}
+   compileOnly {
+      extendsFrom annotationProcessor
+   }
 }
 
 repositories {
-	mavenCentral()
+   mavenCentral()
 }
 
 dependencies {
+<<<<<<< HEAD
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok:1.18.30'
@@ -32,16 +33,17 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation 'io.springfox:springfox-boot-starter:3.0.0'
 	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
+
 }
 
 jar {
-	enabled = false
+   enabled = false
 }
 
 //tasks.named('bootBuildImage') {
-//	builder = 'paketobuildpacks/builder-jammy-base:latest'
+//   builder = 'paketobuildpacks/builder-jammy-base:latest'
 //}
 
 tasks.named('test') {
-	useJUnitPlatform()
+   useJUnitPlatform()
 }
