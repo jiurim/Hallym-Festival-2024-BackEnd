@@ -5,6 +5,9 @@ import com.hallymfestival.HallymFestival2024BackEnd.notice.service.NoticeService
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
+
 @RestController
 public class NoticeController {
     private final NoticeService noticeService;
@@ -14,13 +17,13 @@ public class NoticeController {
         this.noticeService=noticeService;
     }
 
-    @PostMapping("/notice")
+    /*@PostMapping("/notice")
     public NoticeDto createNotice(@RequestBody NoticeDto noticeDto){
         return noticeService.createNotice(noticeDto);
-    }
+    }*/
 
     @GetMapping("/notice")
-    public NoticeDto getNotice(){
+    public List<NoticeDto> getNotice(){
         return noticeService.getNotice();
     }
 

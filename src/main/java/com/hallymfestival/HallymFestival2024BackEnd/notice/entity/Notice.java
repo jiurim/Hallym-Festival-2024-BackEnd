@@ -6,10 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="notice")
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
+@Data
 public class Notice {
 
     @Id

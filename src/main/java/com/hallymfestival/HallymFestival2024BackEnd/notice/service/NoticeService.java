@@ -6,6 +6,8 @@ import com.hallymfestival.HallymFestival2024BackEnd.notice.entity.Notice;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -29,13 +31,16 @@ public class NoticeService {
         return noticeDTO;
     }
 
-    public NoticeDto getNotice(){
-        Notice notice = noticeRepository.findById(1).orElse(null);
-        if (notice != null) {
-            return new NoticeDto(notice.getTitle(), notice.getContent()); // getTitle() 추가
-        } else {
-            return null;
+    public List<NoticeDto> getNotice(){
+        List<Notice> noticeList = noticeRepository.findAll();
+        List<NoticeDto> noticeDtoList = new ArrayList<>();
+
+        for (Notice notice : noticeList) {
+            NoticeDto noticeDto = new NoticeDto(notice.getTitle(), notice.getContent());
+            noticeDtoList.add(noticeDto);
         }
+
+        return noticeDtoList;
     }
 
     public NoticeDto update(Integer id, NoticeDto noticeDto) {
