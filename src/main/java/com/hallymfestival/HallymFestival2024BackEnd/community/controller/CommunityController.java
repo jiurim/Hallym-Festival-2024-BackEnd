@@ -6,7 +6,7 @@ import com.hallymfestival.HallymFestival2024BackEnd.community.entity.CommunityEn
 import com.hallymfestival.HallymFestival2024BackEnd.community.service.CommunityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;gi
+import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController

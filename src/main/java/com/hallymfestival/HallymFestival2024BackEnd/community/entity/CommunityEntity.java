@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table("community")
+@Table(name= "community")
 @Data
 public class CommunityEntity {
     @Id
@@ -27,4 +27,3 @@ public class CommunityEntity {
     private boolean deleteYn;
 }
 
-}
