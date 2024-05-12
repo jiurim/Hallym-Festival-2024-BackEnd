@@ -4,19 +4,19 @@ package com.hallymfestival.HallymFestival2024BackEnd.find.service;
 import com.hallymfestival.HallymFestival2024BackEnd.find.dto.FindAddRequest;
 import com.hallymfestival.HallymFestival2024BackEnd.find.dto.FindApiResponse;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface FindService {
 
     List<FindApiResponse> getList();
-    FindApiResponse addFind(FindAddRequest findAddRequest);
 
-    FindApiResponse getFindById(long findid);
+    FindApiResponse addFind(FindAddRequest findAddRequest) throws IOException;
 
-    FindApiResponse updateFind(long findid, FindAddRequest request);
+    FindApiResponse updateFind(long id, FindAddRequest request) throws IOException;
 
-    void deleteFind(long findid);
+    void deleteFind(long id);
 
-    FindApiResponse completeReturn(long findid);
+    void completeReturn(long id);
 
 }
