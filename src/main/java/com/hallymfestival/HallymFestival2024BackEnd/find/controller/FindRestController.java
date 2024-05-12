@@ -19,8 +19,6 @@ import java.util.List;
 @RequestMapping("/api/find")
 public class FindRestController {
     private final FindServiceImpl findService;
-
-
     //분실물 등록
     @PostMapping
     public ResponseEntity<String> addFind(@RequestParam("image") MultipartFile image,
