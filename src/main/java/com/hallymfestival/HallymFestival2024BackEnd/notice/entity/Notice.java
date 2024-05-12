@@ -5,12 +5,12 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@Table(name="Notice")
+@Table(name="notice")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Board {
+public class Notice {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,8 +18,8 @@ public class Board {
     private Integer id;
 
     @Column(nullable = false)
-    private String content;
+    private String title;
 
     @Column(nullable = false)
-    private String title;
+    private String content;
 }

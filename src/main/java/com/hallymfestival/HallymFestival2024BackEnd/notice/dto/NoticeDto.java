@@ -5,13 +5,13 @@ import lombok.*;
 @Getter
 @Setter
 @NoArgsConstructor
-public class BoardDto {
+public class NoticeDto {
     private String content;
     private String title;
 
-    public BoardDto(String content, String title) {
-        this.content=content;
+    public NoticeDto(String title,String content) {
         this.title=title;
+        this.content=content;
     }
 
     public void setContent(String content){
