@@ -4,12 +4,13 @@ import com.hallymfestival.HallymFestival2024BackEnd.community.dto.CommunityDto;
 import com.hallymfestival.HallymFestival2024BackEnd.community.entity.CommunityEntity;
 import com.hallymfestival.HallymFestival2024BackEnd.community.repository.CommunityRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
-
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class CommunityServiceImpl implements CommunityService{
@@ -18,11 +19,15 @@ public class CommunityServiceImpl implements CommunityService{
     @Override
     public CommunityEntity insertCommunity(CommunityDto communityDto) {
         CommunityEntity communityEntity = new CommunityEntity();
+        log.info("들어옴");
         communityEntity.setPassword(communityDto.getPassword());
+        log.info("비밀번호 확인");
         communityEntity.setContent(communityDto.getContent());
+        log.info("내용확인");
         communityEntity.setDeleteYn(false);
+        log.info("삭제여부 확인");
         communityEntity.setDate(new Date());
-
+        log.info("작성날짜 확인");
         return communityRepository.save(communityEntity);
     }
 

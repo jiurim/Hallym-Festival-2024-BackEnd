@@ -14,7 +14,6 @@ import java.util.List;
 public class CommunityController {
 
     private final CommunityService communityService;
-    // 공지사항에서 get 할때 리스츠로 반환 저장 수정 삭제는 하나하나 하게끔
 
     @GetMapping("/community")
     public ResponseEntity<List<CommunityEntity>> getCommunityList() {
