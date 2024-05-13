@@ -3,11 +3,12 @@ package com.hallymfestival.HallymFestival2024BackEnd.notice.controller;
 import com.hallymfestival.HallymFestival2024BackEnd.notice.dto.NoticeDto;
 import com.hallymfestival.HallymFestival2024BackEnd.notice.service.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
+@RequestMapping("/notice")
 @RestController
 public class NoticeController {
     private final NoticeService noticeService;
@@ -17,18 +18,20 @@ public class NoticeController {
         this.noticeService=noticeService;
     }
 
-    /*@PostMapping("/notice")
-    public NoticeDto createNotice(@RequestBody NoticeDto noticeDto){
-        return noticeService.createNotice(noticeDto);
-    }*/
+    public ResponseEntity<NoticeDto> createNotice(@RequestBody NoticeDto noticeDto){
+        NoticeDto newNotice = noticeService.createNotice(noticeDto);
 
-    @GetMapping("/notice")
-    public List<NoticeDto> getNotice(){
-        return noticeService.getNotice();
+        return ResponseEntity.ok().body(newNotice);
     }
 
-    @PutMapping("/board/{id}")
-    public NoticeDto update(@PathVariable Integer id, @RequestBody NoticeDto noticeDto){
-        return noticeService.update(id, noticeDto);
+    public ResponseEntity<List<NoticeDto>> getNotice(){
+        List<NoticeDto> notices = noticeService.getNotice();
+        return ResponseEntity.ok().body(notices);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<NoticeDto> update(@PathVariable Integer id, @RequestBody NoticeDto noticeDto){
+        NoticeDto updatedNotice = noticeService.update(id, noticeDto);
+        return ResponseEntity.ok().body(updatedNotice);
     }
 }

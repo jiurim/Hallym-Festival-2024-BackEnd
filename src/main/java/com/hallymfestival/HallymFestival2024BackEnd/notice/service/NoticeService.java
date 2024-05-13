@@ -36,7 +36,7 @@ public class NoticeService {
         List<NoticeDto> noticeDtoList = new ArrayList<>();
 
         for (Notice notice : noticeList) {
-            NoticeDto noticeDto = new NoticeDto(notice.getTitle(), notice.getContent());
+            NoticeDto noticeDto = new NoticeDto(notice.getId(),notice.getTitle(), notice.getContent());
             noticeDtoList.add(noticeDto);
         }
 
