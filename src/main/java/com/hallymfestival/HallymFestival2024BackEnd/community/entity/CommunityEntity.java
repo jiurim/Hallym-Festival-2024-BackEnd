@@ -22,7 +22,7 @@ public class CommunityEntity {
     private String password;
 
     @Column(nullable = false)
-    @DateTimeFormat(pattern = "HH:mm")
+    @DateTimeFormat(pattern = "HH:mm:ss")
     private LocalTime date;
 
     @Column(nullable = false)

@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/community")
+@RequestMapping("/community")
 public class CommunityController {
 
     private final CommunityService communityService;
@@ -29,6 +29,32 @@ public class CommunityController {
 
         return ResponseEntity.ok().body(newCommunity);
     }
+
+//    @DeleteMapping("/{id}")
+//    public ResponseEntity<CommunityResponseDto> removeCommunity(@PathVariable long id, @RequestParam String password) {
+//        // 1차 패스워드 일치 여부 확인.
+//        boolean isOk = communityService.isCorrectPassword(id, password);
+//        CommunityResponseDto response = new CommunityResponseDto();
+//
+//        if (!isOk) {
+//            response.setCode("401");
+//            response.setMessage("비밀번호가 일치하지 않습니다.");
+//            return ResponseEntity.badRequest().body(response);
+//        }
+//
+//        boolean isDelete = communityService.deleteCommunity(id, password);
+//        //boolean isDelete = true;
+//
+//        if (!isDelete) {
+//            response.setCode("400");
+//            response.setMessage("게시글 삭제에 실패하였습니다.");
+//            return ResponseEntity.badRequest().body(response);
+//        }
+//
+//        response.setCode("200");
+//        response.setMessage("성공");
+//        return ResponseEntity.ok().body(response);
+//    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<CommunityResponseDto> removeCommunity(@PathVariable long id, @RequestParam String password) {
@@ -55,5 +81,4 @@ public class CommunityController {
         response.setMessage("성공");
         return ResponseEntity.ok().body(response);
     }
-
 }
