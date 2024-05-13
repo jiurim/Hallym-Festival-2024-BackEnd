@@ -5,6 +5,9 @@ import com.hallymfestival.HallymFestival2024BackEnd.notice.service.NoticeService
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
+
 @RestController
 public class NoticeController {
     private final NoticeService noticeService;
