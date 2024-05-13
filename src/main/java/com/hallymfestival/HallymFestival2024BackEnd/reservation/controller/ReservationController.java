@@ -22,14 +22,20 @@ public class ReservationController {
         return ResponseEntity.ok().body(totalCount);
     }
 
+//    @PostMapping("/reservation")
+//    public ResponseEntity<ReservationEntity> insertReservation(@RequestBody ReservationSaveDto reservationSaveDto){
+//        ReservationEntity newReservation = reservationService.insertReservation(reservationSaveDto);
+//
+//        if (newReservation == null) {
+//            return ResponseEntity.badRequest().body(null);
+//        }
+//
+//        return ResponseEntity.ok().body(newReservation);
+//    }
+
     @PostMapping("/reservation")
-    public ResponseEntity<ReservationEntity> insertReservation(@RequestBody ReservationSaveDto reservationSaveDto){
-        ReservationEntity newReservation = reservationService.insertReservation(reservationSaveDto);
-
-        if (newReservation == null) {
-            return ResponseEntity.badRequest().body(null);
-        }
-
-        return ResponseEntity.ok().body(newReservation);
+    public void insertReservation(@RequestBody ReservationSaveDto reservationSaveDto) {
+        reservationService.insertReservation(reservationSaveDto);
     }
+
 }
