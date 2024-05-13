@@ -12,7 +12,7 @@
         public void addCorsMappings(CorsRegistry registry) {
 
             registry.addMapping("/**")
-                    .allowedOrigins("https://hallym-festival.com","http://127.0.0.1:5500","http://github-action-s3-list-app.s3-website.ap-northeast-2.amazonaws.com","http://localhost:8080", "http://localhost:5175","http://localhost:5173","http://localhost:8081", "http://localhost:3000", "http://github-action-chatting-app.s3-website.ap-northeast-2.amazonaws.com","http://kim-maru.com") // 허용할 출처 추가
+                    .allowedOrigins("http://hallym-festival.com","https://hallym-festival.com","http://127.0.0.1:5500","http://github-action-s3-list-app.s3-website.ap-northeast-2.amazonaws.com","http://localhost:8080", "http://localhost:5175","http://localhost:5173","http://localhost:8081", "http://localhost:3000", "http://github-action-chatting-app.s3-website.ap-northeast-2.amazonaws.com","http://kim-maru.com") // 허용할 출처 추가
                     .allowedMethods("GET", "POST","DELETE","PUT") // 허용할 HTTP method
                     .allowCredentials(true) // 쿠키 인증 요청 허용
                     //.allowedOriginPatterns("*") //추가한 부분
