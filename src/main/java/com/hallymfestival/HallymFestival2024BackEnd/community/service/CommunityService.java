@@ -10,7 +10,7 @@ import java.util.List;
 public interface CommunityService {
     CommunityEntity insertCommunity(CommunityDto communityDto);
     List<CommunityEntity> getCommunityList();
-    boolean isCorrectPassword(long id, String password);
-    boolean deleteCommunity(long id);
+    boolean isCorrectPassword(Long id, String password);
+    boolean deleteCommunity(long id, String password);
     //관리자도 같은거 써서 삭제하면 됨
 }

@@ -1,9 +1,10 @@
 package com.hallymfestival.HallymFestival2024BackEnd.community.entity;
 
 import lombok.*;
-
+import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalTime;
+
 
 @Entity
 @Table(name= "community")
@@ -21,7 +22,8 @@ public class CommunityEntity {
     private String password;
 
     @Column(nullable = false)
-    private Date date;
+    @DateTimeFormat(pattern = "HH:mm")
+    private LocalTime date;
 
     @Column(nullable = false)
     private boolean deleteYn;

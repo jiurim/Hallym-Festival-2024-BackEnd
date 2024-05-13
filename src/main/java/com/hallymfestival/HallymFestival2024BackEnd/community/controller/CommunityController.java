@@ -11,26 +11,27 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api/community")
 public class CommunityController {
 
     private final CommunityService communityService;
 
-    @GetMapping("/community")
+    @GetMapping
     public ResponseEntity<List<CommunityEntity>> getCommunityList() {
         List<CommunityEntity> communityList = communityService.getCommunityList();
 
         return ResponseEntity.ok().body(communityList);
     }
 
-    @PostMapping("/community")
+    @PostMapping
     public ResponseEntity<CommunityEntity> insertCommunity(@RequestBody CommunityDto communityDto) {
         CommunityEntity newCommunity = communityService.insertCommunity(communityDto);
 
         return ResponseEntity.ok().body(newCommunity);
     }
 
-    @DeleteMapping("/community/{id}")
-    public ResponseEntity<CommunityResponseDto> removeCommunity(@PathVariable long id, @RequestBody String password) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<CommunityResponseDto> removeCommunity(@PathVariable long id, @RequestParam String password) {
         // 1차 패스워드 일치 여부 확인.
         boolean isOk = communityService.isCorrectPassword(id, password);
         CommunityResponseDto response = new CommunityResponseDto();
@@ -41,7 +42,8 @@ public class CommunityController {
             return ResponseEntity.badRequest().body(response);
         }
 
-        boolean isDelete = communityService.deleteCommunity(id);
+        boolean isDelete = communityService.deleteCommunity(id, password);
+        //boolean isDelete = true;
 
         if (!isDelete) {
             response.setCode("400");
