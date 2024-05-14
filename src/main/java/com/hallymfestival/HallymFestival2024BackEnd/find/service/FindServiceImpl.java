@@ -86,6 +86,7 @@ public class FindServiceImpl implements FindService {
 
     private FindApiResponse mapToApiResponse(FindEntity findEntity) {
         return FindApiResponse.builder()
+                .id(findEntity.getId())
                 .name(findEntity.getName())
                 .location(findEntity.getLocation())
                 .image_url(findEntity.getImage_url())

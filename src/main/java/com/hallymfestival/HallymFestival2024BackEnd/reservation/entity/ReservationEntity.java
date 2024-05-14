@@ -14,7 +14,7 @@ public class ReservationEntity {
     private Long id;
     private int student_id;
     private String name;
-    private String phone_number;
+    private int phone_number;
     private int people_count;
     private Date reg_date;
     //데이터가 들어간 시점 즉 예약 신청완료 후 DB저장된 시간

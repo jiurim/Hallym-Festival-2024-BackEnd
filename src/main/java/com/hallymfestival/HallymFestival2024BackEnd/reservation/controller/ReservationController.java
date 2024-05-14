@@ -5,24 +5,22 @@ import com.hallymfestival.HallymFestival2024BackEnd.reservation.entity.Reservati
 import com.hallymfestival.HallymFestival2024BackEnd.reservation.service.ReservationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api/reservation")
 public class ReservationController {
 
     private final ReservationService reservationService;
 
-    @GetMapping("/reservation")
+    @GetMapping
     public ResponseEntity<Integer> gerReservationTotalCount(){
         int totalCount =reservationService.getReservationTotalCount();
         return ResponseEntity.ok().body(totalCount);
     }
 
-    @PostMapping("/reservation")
+    @PostMapping
     public ResponseEntity<ReservationEntity> insertReservation(@RequestBody ReservationSaveDto reservationSaveDto){
         ReservationEntity newReservation = reservationService.insertReservation(reservationSaveDto);
 

@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/community")
+@RequestMapping("/api/community")
 public class CommunityController {
 
     private final CommunityService communityService;

@@ -4,16 +4,13 @@ import com.hallymfestival.HallymFestival2024BackEnd.find.dto.FindAddRequest;
 import com.hallymfestival.HallymFestival2024BackEnd.find.dto.FindApiResponse;
 import com.hallymfestival.HallymFestival2024BackEnd.find.service.FindServiceImpl;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
 
-@Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/find")
@@ -40,20 +37,20 @@ public class FindRestController {
     }
 
     //분실물 내용 수정
-    @PutMapping("/{id}")
-    public ResponseEntity<FindApiResponse> updateFind(@PathVariable long id,
-                                                      @RequestParam("image") MultipartFile image,
-                                                      @RequestParam("name") String name,
-                                                      @RequestParam("location") String location,
-                                                      @RequestParam("delete_image_url") String delete_image_url) throws IOException {
-        FindAddRequest findAddRequest = new FindAddRequest();
-        findAddRequest.setImage(image);
-        findAddRequest.setName(name);
-        findAddRequest.setLocation(location);
-        findAddRequest.setDelete_image_url(delete_image_url);
-        FindApiResponse updatedFind = findService.updateFind(id, findAddRequest);
-        return ResponseEntity.ok().body(updatedFind);
-    }
+//    @PutMapping("/{id}")
+//    public ResponseEntity<FindApiResponse> updateFind(@PathVariable long id,
+//                                                      @RequestParam("image") MultipartFile image,
+//                                                      @RequestParam("name") String name,
+//                                                      @RequestParam("location") String location,
+//                                                      @RequestParam("delete_image_url") String delete_image_url) throws IOException {
+//        FindAddRequest findAddRequest = new FindAddRequest();
+//        findAddRequest.setImage(image);
+//        findAddRequest.setName(name);
+//        findAddRequest.setLocation(location);
+//        findAddRequest.setDelete_image_url(delete_image_url);
+//        FindApiResponse updatedFind = findService.updateFind(id, findAddRequest);
+//        return ResponseEntity.ok().body(updatedFind);
+//    }
 
 
     //분실물 삭제
@@ -67,14 +64,14 @@ public class FindRestController {
         }
     }
 
-    //분실물 회수완료
-    @PostMapping("{id}")
-    public ResponseEntity<String> returnTrueFind(@PathVariable long id) {
-        try {
-            findService.completeReturn(id);
-            return ResponseEntity.ok("회수완료");
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("전송 실패");
-        }
-    }
+//    분실물 회수완료
+//    @PostMapping("{id}")
+//    public ResponseEntity<String> returnTrueFind(@PathVariable long id) {
+//        try {
+//            findService.completeReturn(id);
+//            return ResponseEntity.ok("회수완료");
+//        } catch (Exception e) {
+//            return ResponseEntity.badRequest().body("전송 실패");
+//        }
+//    }
 }
