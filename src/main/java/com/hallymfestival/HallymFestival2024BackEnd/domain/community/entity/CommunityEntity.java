@@ -1,4 +1,4 @@
-package com.hallymfestival.HallymFestival2024BackEnd.community.entity;
+package com.hallymfestival.HallymFestival2024BackEnd.domain.community.entity;
 
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;

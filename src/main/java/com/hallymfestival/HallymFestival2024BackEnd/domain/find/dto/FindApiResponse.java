@@ -1,4 +1,4 @@
-package com.hallymfestival.HallymFestival2024BackEnd.find.dto;
+package com.hallymfestival.HallymFestival2024BackEnd.domain.find.dto;
 import lombok.*;
 import java.time.LocalDateTime;
 

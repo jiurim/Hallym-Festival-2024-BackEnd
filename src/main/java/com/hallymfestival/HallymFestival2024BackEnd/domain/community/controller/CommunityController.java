@@ -1,9 +1,9 @@
-package com.hallymfestival.HallymFestival2024BackEnd.community.controller;
+package com.hallymfestival.HallymFestival2024BackEnd.domain.community.controller;
 
-import com.hallymfestival.HallymFestival2024BackEnd.community.dto.CommunityDto;
-import com.hallymfestival.HallymFestival2024BackEnd.community.dto.CommunityResponseDto;
-import com.hallymfestival.HallymFestival2024BackEnd.community.entity.CommunityEntity;
-import com.hallymfestival.HallymFestival2024BackEnd.community.service.CommunityService;
+import com.hallymfestival.HallymFestival2024BackEnd.domain.community.dto.CommunityDto;
+import com.hallymfestival.HallymFestival2024BackEnd.domain.community.dto.CommunityResponseDto;
+import com.hallymfestival.HallymFestival2024BackEnd.domain.community.entity.CommunityEntity;
+import com.hallymfestival.HallymFestival2024BackEnd.domain.community.service.CommunityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

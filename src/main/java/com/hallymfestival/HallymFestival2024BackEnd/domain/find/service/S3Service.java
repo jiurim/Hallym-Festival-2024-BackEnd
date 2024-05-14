@@ -1,4 +1,4 @@
-package com.hallymfestival.HallymFestival2024BackEnd.find.service;
+package com.hallymfestival.HallymFestival2024BackEnd.domain.find.service;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.CannedAccessControlList;

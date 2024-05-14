@@ -1,9 +1,8 @@
-package com.hallymfestival.HallymFestival2024BackEnd.reservation.service;
+package com.hallymfestival.HallymFestival2024BackEnd.domain.reservation.service;
 
-
-import com.hallymfestival.HallymFestival2024BackEnd.reservation.dto.ReservationSaveDto;
-import com.hallymfestival.HallymFestival2024BackEnd.reservation.entity.ReservationEntity;
-import com.hallymfestival.HallymFestival2024BackEnd.reservation.repository.ReservationRepository;
+import com.hallymfestival.HallymFestival2024BackEnd.domain.reservation.dto.ReservationSaveDto;
+import com.hallymfestival.HallymFestival2024BackEnd.domain.reservation.entity.ReservationEntity;
+import com.hallymfestival.HallymFestival2024BackEnd.domain.reservation.repository.ReservationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

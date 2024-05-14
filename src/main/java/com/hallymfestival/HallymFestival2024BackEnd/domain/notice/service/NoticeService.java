@@ -1,8 +1,8 @@
-package com.hallymfestival.HallymFestival2024BackEnd.notice.service;
+package com.hallymfestival.HallymFestival2024BackEnd.domain.notice.service;
 
-import com.hallymfestival.HallymFestival2024BackEnd.notice.repository.NoticeRepository;
-import com.hallymfestival.HallymFestival2024BackEnd.notice.dto.NoticeDto;
-import com.hallymfestival.HallymFestival2024BackEnd.notice.entity.Notice;
+import com.hallymfestival.HallymFestival2024BackEnd.domain.notice.dto.NoticeDto;
+import com.hallymfestival.HallymFestival2024BackEnd.domain.notice.entity.Notice;
+import com.hallymfestival.HallymFestival2024BackEnd.domain.notice.repository.NoticeRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

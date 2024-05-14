@@ -1,4 +1,4 @@
-package com.hallymfestival.HallymFestival2024BackEnd.community.dto;
+package com.hallymfestival.HallymFestival2024BackEnd.domain.community.dto;
 
 import lombok.Data;
 

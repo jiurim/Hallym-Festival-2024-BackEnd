@@ -1,4 +1,4 @@
-package com.hallymfestival.HallymFestival2024BackEnd.notice.entity;
+package com.hallymfestival.HallymFestival2024BackEnd.domain.notice.entity;
 
 import lombok.*;
 

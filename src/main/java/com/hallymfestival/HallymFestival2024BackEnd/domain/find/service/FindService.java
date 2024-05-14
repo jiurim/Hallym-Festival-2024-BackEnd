@@ -1,8 +1,8 @@
-package com.hallymfestival.HallymFestival2024BackEnd.find.service;
+package com.hallymfestival.HallymFestival2024BackEnd.domain.find.service;
 
 
-import com.hallymfestival.HallymFestival2024BackEnd.find.dto.FindAddRequest;
-import com.hallymfestival.HallymFestival2024BackEnd.find.dto.FindApiResponse;
+import com.hallymfestival.HallymFestival2024BackEnd.domain.find.dto.FindAddRequest;
+import com.hallymfestival.HallymFestival2024BackEnd.domain.find.dto.FindApiResponse;
 
 import java.io.IOException;
 import java.util.List;
