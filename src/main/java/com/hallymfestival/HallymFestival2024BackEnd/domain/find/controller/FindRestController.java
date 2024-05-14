@@ -1,8 +1,8 @@
-package com.hallymfestival.HallymFestival2024BackEnd.find.controller;
+package com.hallymfestival.HallymFestival2024BackEnd.domain.find.controller;
 
-import com.hallymfestival.HallymFestival2024BackEnd.find.dto.FindAddRequest;
-import com.hallymfestival.HallymFestival2024BackEnd.find.dto.FindApiResponse;
-import com.hallymfestival.HallymFestival2024BackEnd.find.service.FindServiceImpl;
+import com.hallymfestival.HallymFestival2024BackEnd.domain.find.dto.FindAddRequest;
+import com.hallymfestival.HallymFestival2024BackEnd.domain.find.dto.FindApiResponse;
+import com.hallymfestival.HallymFestival2024BackEnd.domain.find.service.FindServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

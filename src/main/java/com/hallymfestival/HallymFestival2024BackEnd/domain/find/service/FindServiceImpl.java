@@ -1,13 +1,14 @@
-package com.hallymfestival.HallymFestival2024BackEnd.find.service;
+package com.hallymfestival.HallymFestival2024BackEnd.domain.find.service;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
-import com.hallymfestival.HallymFestival2024BackEnd.find.domain.FindRepository;
-import com.hallymfestival.HallymFestival2024BackEnd.find.dto.FindAddRequest;
-import com.hallymfestival.HallymFestival2024BackEnd.find.dto.FindApiResponse;
-import com.hallymfestival.HallymFestival2024BackEnd.find.entity.FindEntity;
+import com.hallymfestival.HallymFestival2024BackEnd.domain.find.domain.FindRepository;
+import com.hallymfestival.HallymFestival2024BackEnd.domain.find.dto.FindAddRequest;
+import com.hallymfestival.HallymFestival2024BackEnd.domain.find.dto.FindApiResponse;
+import com.hallymfestival.HallymFestival2024BackEnd.domain.find.entity.FindEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,10 +17,10 @@ import org.springframework.transaction.annotation.Transactional;
 public class FindServiceImpl implements FindService {
 
     private final FindRepository findRepository;
-    private final S3Service s3Service;
+    private final com.hallymfestival.HallymFestival2024BackEnd.domain.find.service.S3Service s3Service;
 
     @Autowired
-    public FindServiceImpl(FindRepository findRepository, S3Service s3Service) {
+    public FindServiceImpl(FindRepository findRepository, com.hallymfestival.HallymFestival2024BackEnd.domain.find.service.S3Service s3Service) {
         this.findRepository = findRepository;
         this.s3Service = s3Service;
     }

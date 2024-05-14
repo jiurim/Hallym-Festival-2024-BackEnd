@@ -1,11 +1,11 @@
-package com.hallymfestival.HallymFestival2024BackEnd.community.service;
+package com.hallymfestival.HallymFestival2024BackEnd.domain.community.service;
 
-import com.hallymfestival.HallymFestival2024BackEnd.community.dto.CommunityDto;
-import com.hallymfestival.HallymFestival2024BackEnd.community.entity.CommunityEntity;
-import com.hallymfestival.HallymFestival2024BackEnd.community.repository.CommunityRepository;
+
+import com.hallymfestival.HallymFestival2024BackEnd.domain.community.dto.CommunityDto;
+import com.hallymfestival.HallymFestival2024BackEnd.domain.community.entity.CommunityEntity;
+import com.hallymfestival.HallymFestival2024BackEnd.domain.community.repository.CommunityRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.codec.binary.StringUtils;
 import org.springframework.stereotype.Service;
 import java.time.LocalTime;
 import java.util.List;

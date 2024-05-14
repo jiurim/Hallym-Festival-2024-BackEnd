@@ -1,7 +1,7 @@
-package com.hallymfestival.HallymFestival2024BackEnd.notice.controller;
+package com.hallymfestival.HallymFestival2024BackEnd.domain.notice.controller;
 
-import com.hallymfestival.HallymFestival2024BackEnd.notice.dto.NoticeDto;
-import com.hallymfestival.HallymFestival2024BackEnd.notice.service.NoticeService;
+import com.hallymfestival.HallymFestival2024BackEnd.domain.notice.dto.NoticeDto;
+import com.hallymfestival.HallymFestival2024BackEnd.domain.notice.service.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

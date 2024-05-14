@@ -1,4 +1,4 @@
-package com.hallymfestival.HallymFestival2024BackEnd.reservation.dto;
+package com.hallymfestival.HallymFestival2024BackEnd.domain.reservation.dto;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;

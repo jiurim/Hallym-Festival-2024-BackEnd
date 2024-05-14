@@ -1,4 +1,4 @@
-package com.hallymfestival.HallymFestival2024BackEnd.reservation.entity;
+package com.hallymfestival.HallymFestival2024BackEnd.domain.reservation.entity;
 
 import lombok.Data;
 

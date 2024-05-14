@@ -1,4 +1,4 @@
-package com.hallymfestival.HallymFestival2024BackEnd.find.dto;
+package com.hallymfestival.HallymFestival2024BackEnd.domain.find.dto;
 import java.time.LocalDateTime;
 import org.springframework.format.annotation.DateTimeFormat;
 import lombok.Getter;
