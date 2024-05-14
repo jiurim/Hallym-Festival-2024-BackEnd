@@ -1,6 +1,6 @@
 package com.hallymfestival.HallymFestival2024BackEnd.notice.service;
 
-import com.hallymfestival.HallymFestival2024BackEnd.notice.domain.NoticeRepository;
+import com.hallymfestival.HallymFestival2024BackEnd.notice.repository.NoticeRepository;
 import com.hallymfestival.HallymFestival2024BackEnd.notice.dto.NoticeDto;
 import com.hallymfestival.HallymFestival2024BackEnd.notice.entity.Notice;
 import lombok.extern.slf4j.Slf4j;

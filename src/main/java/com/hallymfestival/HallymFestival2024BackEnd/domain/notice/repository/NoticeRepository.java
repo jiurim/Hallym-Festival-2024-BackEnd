@@ -1,4 +1,4 @@
-package com.hallymfestival.HallymFestival2024BackEnd.notice.domain;
+package com.hallymfestival.HallymFestival2024BackEnd.notice.repository;
 
 
 import com.hallymfestival.HallymFestival2024BackEnd.notice.entity.Notice;
