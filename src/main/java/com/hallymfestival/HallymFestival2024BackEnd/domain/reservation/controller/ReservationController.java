@@ -19,22 +19,17 @@ public class ReservationController {
     private final ReservationService reservationService;
 
 
-    @GetMapping("/reservationDetail")
+    @GetMapping("/reservationdetail")
     public ResponseEntity<Integer> getReservationTotalCount(){
         int totalCount =reservationService.getReservationTotalCount();
         return ResponseEntity.ok().body(totalCount);
     }
 
 
-    @GetMapping("/reservationInfo")
+    @GetMapping("/reservationinfo")
     public ResponseEntity<ReservationRequestDto> getReservationInfo(@RequestBody ReservationRequestDto requestDto) {
         ReservationRequestDto reservationInfo;
-        try {
-            reservationInfo = reservationService.getReservationInfo(requestDto.getStudentId(), requestDto.getName());
-        }
-        catch (EntityNotFoundException e) {
-            return ResponseEntity.badRequest().body(null);
-        }
+        reservationInfo = reservationService.getReservationInfo(requestDto.getStudentId(), requestDto.getName());
         return ResponseEntity.ok().body(reservationInfo);
     }
 
@@ -50,7 +45,7 @@ public class ReservationController {
 //        return ResponseEntity.ok().body(newReservation);
 //    }
 
-    @PostMapping("/reservationDetail")
+    @PostMapping("/reservationdetail")
     public void insertReservation(@RequestBody ReservationSaveDto reservationSaveDto) {
         reservationService.insertReservation(reservationSaveDto);
     }
