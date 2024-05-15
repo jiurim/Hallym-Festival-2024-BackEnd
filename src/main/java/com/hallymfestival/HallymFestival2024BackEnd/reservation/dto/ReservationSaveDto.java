@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 public class ReservationSaveDto {
-    private int student_id;
+    private String studentId;
     private String name;
     private int phone_number;
     private int people_count;

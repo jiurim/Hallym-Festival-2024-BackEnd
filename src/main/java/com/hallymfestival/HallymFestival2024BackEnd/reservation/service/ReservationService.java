@@ -1,7 +1,6 @@
 package com.hallymfestival.HallymFestival2024BackEnd.reservation.service;
 
-
-//import com.hallymfestival.HallymFestival2024BackEnd.reservation.dto.ReservationRequestDto;
+import com.hallymfestival.HallymFestival2024BackEnd.reservation.dto.ReservationRequestDto;
 import com.hallymfestival.HallymFestival2024BackEnd.reservation.dto.ReservationSaveDto;
 import com.hallymfestival.HallymFestival2024BackEnd.reservation.entity.ReservationEntity;
 import org.springframework.stereotype.Service;
@@ -12,6 +11,6 @@ public interface ReservationService {
 
     ReservationEntity insertReservation(ReservationSaveDto reservationSaveDto);
 
-//    ReservationRequestDto getReservationInfo(String studentId, String name);
+    ReservationRequestDto getReservationInfo(String studentId, String name);
 
 }

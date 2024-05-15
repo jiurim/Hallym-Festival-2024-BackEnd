@@ -1,18 +1,21 @@
 package com.hallymfestival.HallymFestival2024BackEnd.reservation.service;
 
 
-//import com.hallymfestival.HallymFestival2024BackEnd.reservation.dto.ReservationRequestDto;
+import com.hallymfestival.HallymFestival2024BackEnd.reservation.dto.ReservationRequestDto;
 import com.hallymfestival.HallymFestival2024BackEnd.reservation.dto.ReservationSaveDto;
 import com.hallymfestival.HallymFestival2024BackEnd.reservation.entity.ReservationEntity;
 import com.hallymfestival.HallymFestival2024BackEnd.reservation.repository.ReservationRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.Date;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class RerservationServiceImpl implements ReservationService {
 
@@ -34,7 +37,7 @@ public class RerservationServiceImpl implements ReservationService {
 
         ReservationEntity reservation = new ReservationEntity();
         reservation.setName(reservationSaveDto.getName());
-        reservation.setStudent_id(reservationSaveDto.getStudent_id());
+        reservation.setStudentId(reservationSaveDto.getStudentId());
         reservation.setPeople_count(reservationSaveDto.getPeople_count());
         reservation.setPhone_number(reservationSaveDto.getPhone_number());
         reservation.setReg_date(new Date());
@@ -42,20 +45,25 @@ public class RerservationServiceImpl implements ReservationService {
         return reservationRepository.save(reservation);
     }
 
-//    @Override
-//    public ReservationRequestDto getReservationInfo(String studentId, String name) {
-//        ReservationEntity reservation = reservationRepository.findReservationInfo(studentId, name);
-//
-//        if (!reservation.getId().equals(studentId)) {
-//            throw new EntityNotFoundException(studentId + "," + name +"예약조회가 되지 않습니다.");
-//        }
-//
-//        ReservationRequestDto reservationRequestDto = new ReservationRequestDto();
-//        reservationRequestDto.setName(reservation.getName());
-//        reservationRequestDto.setStudent_id(reservation.getStudent_id());
-//        reservationRequestDto.setPhone_number(reservation.getPhone_number());
-//        reservationRequestDto.setPeople_count(reservation.getPeople_count());
-//
-//        return reservationRequestDto;
-//    }
+    @Override
+    public ReservationRequestDto getReservationInfo(String studentId, String name) {
+        ReservationEntity reservation = reservationRepository.findByStudentIdAndName(studentId, name);
+        log.info(studentId);
+        log.info(name);
+
+        if (studentId != reservation.getStudentId()&& !name.equals(reservation.getName())) {
+            log.info("디비에 없음");
+            throw new EntityNotFoundException("예약조회가 되지 않습니다.");
+        }
+
+        log.info("디비에 있음");
+        ReservationRequestDto reservationRequestDto = new ReservationRequestDto();
+        reservationRequestDto.setName(reservation.getName());
+        reservationRequestDto.setStudentId(reservation.getStudentId());
+        reservationRequestDto.setPhone_number(reservation.getPhone_number());
+        reservationRequestDto.setPeople_count(reservation.getPeople_count());
+
+        log.info("반환");
+        return reservationRequestDto;
+    }
 }

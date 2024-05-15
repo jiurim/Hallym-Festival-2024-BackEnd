@@ -13,7 +13,7 @@ public class ReservationEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column(nullable = false)
-    private int student_id;
+    private String studentId;
     @Column(nullable = false)
     private String name;
     @Column(nullable = false)
