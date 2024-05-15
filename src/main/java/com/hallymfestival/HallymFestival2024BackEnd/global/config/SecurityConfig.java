@@ -49,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .and()
                 .authorizeRequests()
-                //HttpServletRequest를 사용하는 요청들에 대한 접근 제한 설정
+                //HttpServletRequest를 사용하는 요청들에 대한 접근 제한 설정.
                 .antMatchers("/api/admin/community", "/api/admin/notice", "/api/admin/find").hasRole("ADMIN")
                 //위 주소는 관리자만 접근
                 .antMatchers("/**").permitAll()

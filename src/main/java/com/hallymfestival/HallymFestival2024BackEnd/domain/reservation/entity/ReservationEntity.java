@@ -3,7 +3,7 @@ package com.hallymfestival.HallymFestival2024BackEnd.domain.reservation.entity;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Data
 @Entity
@@ -21,6 +21,6 @@ public class ReservationEntity {
     @Column(nullable = false)
     private int people_count;
     @Column(nullable = false)
-    private Date reg_date;
+    private LocalDateTime reg_date;
     //데이터가 들어간 시점 즉 예약 신청완료 후 DB저장된 시간
 }

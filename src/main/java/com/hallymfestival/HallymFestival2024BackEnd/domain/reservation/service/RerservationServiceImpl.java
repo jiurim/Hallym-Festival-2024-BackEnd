@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Service
@@ -39,7 +40,7 @@ public class RerservationServiceImpl implements ReservationService {
         reservation.setStudentId(reservationSaveDto.getStudentId());
         reservation.setPeople_count(reservationSaveDto.getPeople_count());
         reservation.setPhone_number(reservationSaveDto.getPhone_number());
-        reservation.setReg_date(new Date());
+        reservation.setReg_date(LocalDateTime.now());
 
         return reservationRepository.save(reservation);
     }
