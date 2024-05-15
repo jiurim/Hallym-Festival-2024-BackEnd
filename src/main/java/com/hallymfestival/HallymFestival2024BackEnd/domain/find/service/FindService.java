@@ -17,6 +17,4 @@ public interface FindService {
 
     void deleteFind(long id);
 
-    void completeReturn(long id);
-
 }
