@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ReservationRepository extends JpaRepository<ReservationEntity, Long> {
     int countBy();
-
+//    ReservationEntity findReservationInfo(String studentId, String name);
 }

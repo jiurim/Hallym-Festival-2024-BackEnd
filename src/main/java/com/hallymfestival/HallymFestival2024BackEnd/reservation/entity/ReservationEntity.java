@@ -17,7 +17,7 @@ public class ReservationEntity {
     @Column(nullable = false)
     private String name;
     @Column(nullable = false)
-    private String phone_number;
+    private int phone_number;
     @Column(nullable = false)
     private int people_count;
     @Column(nullable = false)

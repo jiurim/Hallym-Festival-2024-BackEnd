@@ -8,6 +8,6 @@ import lombok.RequiredArgsConstructor;
 public class ReservationSaveDto {
     private int student_id;
     private String name;
-    private String phone_number;
+    private int phone_number;
     private int people_count;
 }

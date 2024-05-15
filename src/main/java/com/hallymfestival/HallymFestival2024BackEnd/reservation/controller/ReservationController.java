@@ -1,26 +1,33 @@
 package com.hallymfestival.HallymFestival2024BackEnd.reservation.controller;
 
+//import com.hallymfestival.HallymFestival2024BackEnd.reservation.dto.ReservationRequestDto;
 import com.hallymfestival.HallymFestival2024BackEnd.reservation.dto.ReservationSaveDto;
-import com.hallymfestival.HallymFestival2024BackEnd.reservation.entity.ReservationEntity;
 import com.hallymfestival.HallymFestival2024BackEnd.reservation.service.ReservationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api/reservation")
 public class ReservationController {
 
     private final ReservationService reservationService;
 
-    @GetMapping("/reservation")
-    public ResponseEntity<Integer> gerReservationTotalCount(){
+    @GetMapping("/reservationDetail")
+    public ResponseEntity<Integer> getReservationTotalCount(){
         int totalCount =reservationService.getReservationTotalCount();
         return ResponseEntity.ok().body(totalCount);
     }
+
+//    @GetMapping("/reservationInfo")
+//    public ResponseEntity<ReservationRequestDto> getReservationInfo(
+//            @RequestParam(value = "studentId") String studentId,
+//            @RequestParam(value = "name") String name) {
+//        ReservationRequestDto reservationInfo = reservationService.getReservationInfo(studentId, name);
+//        return ResponseEntity.ok().body(reservationInfo);
+//    }
+
 
 //    @PostMapping("/reservation")
 //    public ResponseEntity<ReservationEntity> insertReservation(@RequestBody ReservationSaveDto reservationSaveDto){
@@ -33,7 +40,7 @@ public class ReservationController {
 //        return ResponseEntity.ok().body(newReservation);
 //    }
 
-    @PostMapping("/reservation")
+    @PostMapping("/reservationDetail")
     public void insertReservation(@RequestBody ReservationSaveDto reservationSaveDto) {
         reservationService.insertReservation(reservationSaveDto);
     }

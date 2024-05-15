@@ -1,6 +1,7 @@
 package com.hallymfestival.HallymFestival2024BackEnd.reservation.service;
 
 
+//import com.hallymfestival.HallymFestival2024BackEnd.reservation.dto.ReservationRequestDto;
 import com.hallymfestival.HallymFestival2024BackEnd.reservation.dto.ReservationSaveDto;
 import com.hallymfestival.HallymFestival2024BackEnd.reservation.entity.ReservationEntity;
 import com.hallymfestival.HallymFestival2024BackEnd.reservation.repository.ReservationRepository;
@@ -13,12 +14,13 @@ import java.util.Date;
 
 @Service
 @RequiredArgsConstructor
-public class RerservationServiceImpl implements ReservationService{
+public class RerservationServiceImpl implements ReservationService {
 
     @Autowired
     private ReservationRepository reservationRepository;
 
     @Override
+    @Transactional(readOnly = true)
     public int getReservationTotalCount() {
         return reservationRepository.countBy();
     }
@@ -26,8 +28,8 @@ public class RerservationServiceImpl implements ReservationService{
     @Override
     @Transactional
     public ReservationEntity insertReservation(ReservationSaveDto reservationSaveDto) {
-        if(this.getReservationTotalCount() > 100) {
-            return null;
+        if (getReservationTotalCount() > 100) {
+            throw new RuntimeException("Reservation limit exceeded");
         }
 
         ReservationEntity reservation = new ReservationEntity();
@@ -39,4 +41,21 @@ public class RerservationServiceImpl implements ReservationService{
 
         return reservationRepository.save(reservation);
     }
+
+//    @Override
+//    public ReservationRequestDto getReservationInfo(String studentId, String name) {
+//        ReservationEntity reservation = reservationRepository.findReservationInfo(studentId, name);
+//
+//        if (!reservation.getId().equals(studentId)) {
+//            throw new EntityNotFoundException(studentId + "," + name +"예약조회가 되지 않습니다.");
+//        }
+//
+//        ReservationRequestDto reservationRequestDto = new ReservationRequestDto();
+//        reservationRequestDto.setName(reservation.getName());
+//        reservationRequestDto.setStudent_id(reservation.getStudent_id());
+//        reservationRequestDto.setPhone_number(reservation.getPhone_number());
+//        reservationRequestDto.setPeople_count(reservation.getPeople_count());
+//
+//        return reservationRequestDto;
+//    }
 }
