@@ -45,9 +45,15 @@ public class ReservationController {
 //        return ResponseEntity.ok().body(newReservation);
 //    }
 
+//    @PostMapping("/reservationdetail")
+//    public void insertReservation(@RequestBody ReservationSaveDto reservationSaveDto) {
+//        reservationService.insertReservation(reservationSaveDto);
+//    }
+
     @PostMapping("/reservationdetail")
-    public void insertReservation(@RequestBody ReservationSaveDto reservationSaveDto) {
+    public String insertReservation(@RequestBody ReservationSaveDto reservationSaveDto) {
         reservationService.insertReservation(reservationSaveDto);
+        return "예약성공";
     }
 
 }
