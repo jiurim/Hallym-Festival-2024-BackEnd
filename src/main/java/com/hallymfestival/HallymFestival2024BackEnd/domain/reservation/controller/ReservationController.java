@@ -26,7 +26,7 @@ public class ReservationController {
     }
 
 
-    @GetMapping("/reservationinfo")
+    @PostMapping("/reservationinfo")
     public ResponseEntity<ReservationRequestDto> getReservationInfo(@RequestBody ReservationRequestDto requestDto) {
         ReservationRequestDto reservationInfo;
         reservationInfo = reservationService.getReservationInfo(requestDto.getStudentId(), requestDto.getName());
