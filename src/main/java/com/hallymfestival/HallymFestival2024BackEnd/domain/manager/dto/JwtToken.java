@@ -1,4 +1,4 @@
-/*package com.hallymfestival.HallymFestival2024BackEnd.domain.manager.dto;
+package com.hallymfestival.HallymFestival2024BackEnd.domain.manager.dto;
 
 import lombok.Builder;
 import lombok.Data;
@@ -10,4 +10,3 @@ public class JwtToken {
     private String accessToken;
     private String refreshToken;
 }
-*/
