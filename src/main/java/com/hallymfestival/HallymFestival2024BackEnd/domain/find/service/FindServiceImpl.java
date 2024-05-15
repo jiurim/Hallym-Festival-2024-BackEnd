@@ -74,15 +74,15 @@ public class FindServiceImpl implements FindService {
         }
     }
 
-    @Override
-    public void completeReturn(long id) {
-        Optional<FindEntity> optionalFindEntity = findRepository.findById(id);
-        if (optionalFindEntity.isPresent()) {
-            FindEntity nowFindEntity = optionalFindEntity.get();
-            nowFindEntity.set_return(true);
-            findRepository.save(nowFindEntity);
-        }
-    }
+//    @Override
+//    public void completeReturn(long id) {
+//        Optional<FindEntity> optionalFindEntity = findRepository.findById(id);
+//        if (optionalFindEntity.isPresent()) {
+//            FindEntity nowFindEntity = optionalFindEntity.get();
+//            nowFindEntity.set_return(true);
+//            findRepository.save(nowFindEntity);
+//        }
+//    }
 
 
     private FindApiResponse mapToApiResponse(FindEntity findEntity) {
@@ -92,7 +92,6 @@ public class FindServiceImpl implements FindService {
                 .location(findEntity.getLocation())
                 .image_url(findEntity.getImage_url())
                 .upload_time(findEntity.getUpload_time())
-                .is_return(findEntity.is_return())
                 .build();
     }
 
@@ -101,7 +100,6 @@ public class FindServiceImpl implements FindService {
                 .name(findAddRequest.getName())
                 .location(findAddRequest.getLocation())
                 .upload_time(LocalDateTime.now())
-                .is_return(false)
                 .build();
     }
 
