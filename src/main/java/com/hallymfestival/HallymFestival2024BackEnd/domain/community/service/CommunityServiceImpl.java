@@ -7,9 +7,9 @@ import com.hallymfestival.HallymFestival2024BackEnd.domain.community.repository.
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.Date;
 
 @Slf4j
 @Service
@@ -27,7 +27,7 @@ public class CommunityServiceImpl implements CommunityService{
         log.info("내용확인");
         communityEntity.setDeleteYn(false);
         log.info("삭제여부 확인");
-        communityEntity.setDate(LocalTime.now());
+        communityEntity.setDate(new Date());
         log.info("작성날짜 확인");
         return communityRepository.save(communityEntity);
     }
