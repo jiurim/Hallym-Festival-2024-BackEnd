@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Table(name="reservation")
 public class ReservationEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
     private String studentId;
