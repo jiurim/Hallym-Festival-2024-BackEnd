@@ -30,12 +30,12 @@ public class ReservationController {
 
     public ResponseEntity<ReservationRequestDto> getReservationInfo(@RequestBody ReservationRequestDto requestDto) {
         ReservationRequestDto reservationInfo;
-//        try {
+        try {
             reservationInfo = reservationService.getReservationInfo(requestDto.getStudentId(), requestDto.getName());
-//        }
-//        catch (EntityNotFoundException e) {
-//            return ResponseEntity.badRequest().body();
-//        }
+           }
+        catch (EntityNotFoundException e) {
+            return ResponseEntity.badRequest().body(null);
+           }
         return ResponseEntity.ok().body(reservationInfo);
     }
 
