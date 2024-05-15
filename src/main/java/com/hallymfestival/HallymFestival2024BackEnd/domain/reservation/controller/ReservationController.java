@@ -27,14 +27,15 @@ public class ReservationController {
 
 
     @GetMapping("/reservationInfo")
+
     public ResponseEntity<ReservationRequestDto> getReservationInfo(@RequestBody ReservationRequestDto requestDto) {
         ReservationRequestDto reservationInfo;
-        try {
+//        try {
             reservationInfo = reservationService.getReservationInfo(requestDto.getStudentId(), requestDto.getName());
-        }
-        catch (EntityNotFoundException e) {
-            return ResponseEntity.badRequest().body(null);
-        }
+//        }
+//        catch (EntityNotFoundException e) {
+//            return ResponseEntity.badRequest().body();
+//        }
         return ResponseEntity.ok().body(reservationInfo);
     }
 
