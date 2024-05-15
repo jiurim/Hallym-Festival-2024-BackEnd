@@ -53,7 +53,7 @@ public class ReservationController {
     @PostMapping("/reservationdetail")
     public String insertReservation(@RequestBody ReservationSaveDto reservationSaveDto) {
         reservationService.insertReservation(reservationSaveDto);
-        return "예약성공";
+        return "예약성공!";
     }
 
 }
