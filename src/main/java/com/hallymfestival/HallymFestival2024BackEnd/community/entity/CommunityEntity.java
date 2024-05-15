@@ -4,6 +4,7 @@ import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.time.LocalTime;
+import java.util.Date;
 
 
 @Entity
@@ -22,8 +23,8 @@ public class CommunityEntity {
     private String password;
 
     @Column(nullable = false)
-    @DateTimeFormat(pattern = "HH:mm:ss")
-    private LocalTime date;
+    @DateTimeFormat(pattern = "dd.HH:mm:ss")
+    private Date date;
 
     @Column(nullable = false)
     private boolean deleteYn;
