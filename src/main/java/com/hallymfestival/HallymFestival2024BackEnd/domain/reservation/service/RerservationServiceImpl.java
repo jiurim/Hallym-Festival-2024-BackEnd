@@ -23,12 +23,6 @@ public class RerservationServiceImpl implements ReservationService {
     private ReservationRepository reservationRepository;
 
     @Override
-    @Transactional(readOnly = true)
-    public int getReservationTotalCount() {
-        return reservationRepository.countBy();
-    }
-
-    @Override
     @Transactional
     public ReservationEntity insertReservation(ReservationSaveDto reservationSaveDto) {
         if (getReservationTotalCount() > 100) {
@@ -43,6 +37,19 @@ public class RerservationServiceImpl implements ReservationService {
         reservation.setReg_date(LocalDateTime.now());
 
         return reservationRepository.save(reservation);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public int getReservationTotalCount() {
+        return reservationRepository.countBy();
+    }
+
+    @Transactional
+    public void decrease(Long id){
+        ReservationEntity reservationEntity = reservationRepository.getById(id);
+        reservationEntity.decrease();
+        reservationRepository.saveAndFlush(reservationEntity);
     }
 
     @Override
