@@ -60,6 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("http://43.202.160.134:8081/api/hc").permitAll()
                 .antMatchers("http://3.39.62.170").permitAll()
                 .antMatchers("http://13.209.218.51").permitAll()
+                .antMatchers("http://hallym-festival-admin.com").permitAll()
                 //위 api는 인증 없이 접근 허용
 
                 .and()
