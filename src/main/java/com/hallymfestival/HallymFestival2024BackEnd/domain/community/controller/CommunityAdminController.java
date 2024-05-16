@@ -41,7 +41,7 @@ public class CommunityAdminController {
 
          if (!isDelete) {
              response.setCode("400");
-             response.setMessage("게시글 삭제에 실패하였습니다.");
+             response.setMessage("게시글 삭제에 실패하였습니다!");
              return ResponseEntity.badRequest().body(response);
          }
 
