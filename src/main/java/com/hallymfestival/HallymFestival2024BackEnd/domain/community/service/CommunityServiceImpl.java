@@ -94,4 +94,17 @@ public class CommunityServiceImpl implements CommunityService{
 
         return false;
     }
+
+    @Override
+    public boolean deleteAdminCommunity(long id) {
+        CommunityEntity originCommunity = communityRepository.findById(id).get();
+        originCommunity.setDeleteYn(true);
+
+        CommunityEntity community = communityRepository.save(originCommunity);
+
+        if (community.isDeleteYn()) {
+            return true;
+        }
+        return false;
+    }
 }
