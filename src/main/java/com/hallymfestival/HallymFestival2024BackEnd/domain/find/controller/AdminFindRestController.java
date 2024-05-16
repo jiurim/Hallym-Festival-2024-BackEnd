@@ -15,7 +15,6 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/admin/find")
-@PreAuthorize("hasRole('admin')")
 public class AdminFindRestController {
 
     private final FindServiceImpl findService;

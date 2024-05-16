@@ -11,7 +11,7 @@ import com.hallymfestival.HallymFestival2024BackEnd.domain.manager.entity.Refres
 import com.hallymfestival.HallymFestival2024BackEnd.domain.manager.repository.AuthorityRepository;
 import com.hallymfestival.HallymFestival2024BackEnd.domain.manager.repository.ManagerRepository;
 import com.hallymfestival.HallymFestival2024BackEnd.domain.manager.repository.RefreshTokenRepository;
-import com.hallymfestival.HallymFestival2024BackEnd.global.jwt.JwtTokenProvider;
+import com.hallymfestival.HallymFestival2024BackEnd.domain.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -99,6 +99,7 @@ public class AuthService {
 
         // 새로운 토큰 생성
         JwtToken jwtToken = jwtTokenProvider.generateTokenDto(authentication);
+        log.info("999");
 
         // refreshToken 업데이트
         RefreshToken newRefreshToken = refreshToken.updateValue(jwtToken.getRefreshToken());
@@ -107,4 +108,40 @@ public class AuthService {
         // 토큰 발급
         return jwtToken;
     }
+
+//    @Transactional
+//    public JwtToken reissue(TokenRequestDto tokenRequestDto) {
+//        // refresh Token 검증
+//        if (!jwtTokenProvider.validateToken(tokenRequestDto.getRefreshToken())) {
+//            throw new RuntimeException("Refresh Token 이 유효하지 않습니다.");
+//        }
+//
+//        // access Token에서 Authentication 객체 가져오기
+//        Authentication authentication = jwtTokenProvider.getAuthentication(tokenRequestDto.getAccessToken());
+//
+//        // DB에서 member_id를 기반으로 Refresh Token 값 가져오기
+//        RefreshToken refreshToken = refreshTokenRepository.findByKey(authentication.getName())
+//                .orElseThrow(() -> new RuntimeException("로그아웃 된 사용자입니다."));
+//
+//        // refresh Token이 다르면
+//        if (!refreshToken.getValue().equals(tokenRequestDto.getRefreshToken())) {
+//            throw new RuntimeException("토큰의 유저 정보가 일치하지 않습니다.");
+//        }
+//
+//        // 액세스 토큰 만료 여부 확인
+//        if (jwtTokenProvider.isAccessTokenExpired(tokenRequestDto.getAccessToken())) {
+//            throw new RuntimeException("액세스 토큰이 만료되었습니다.");
+//        }
+//
+//        // 새로운 토큰 생성
+//        JwtToken jwtToken = jwtTokenProvider.generateTokenDto(authentication);
+//
+//        // refreshToken 업데이트
+//        RefreshToken newRefreshToken = refreshToken.updateValue(jwtToken.getRefreshToken());
+//        refreshTokenRepository.save(newRefreshToken);
+//
+//        // 토큰 발급
+//        return jwtToken;
+//    }
 }
+

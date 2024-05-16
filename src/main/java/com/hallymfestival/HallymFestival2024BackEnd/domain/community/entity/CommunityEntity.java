@@ -28,5 +28,9 @@ public class CommunityEntity {
 
     @Column(nullable = false)
     private boolean deleteYn;
+
+    public CommunityEntity() {
+        this.date = LocalDateTime.now();
+    }
 }
 

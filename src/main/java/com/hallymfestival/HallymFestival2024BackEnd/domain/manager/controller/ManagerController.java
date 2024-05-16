@@ -44,9 +44,20 @@ public class ManagerController {
         return ResponseEntity.ok(jwtToken);
     }
 
+    //토큰 재발급
     @PostMapping("/reissue")
-    public ResponseEntity<JwtToken> reissue(@RequestBody TokenRequestDto tokenRequestDto) {
-        return ResponseEntity.ok(authService.reissue(tokenRequestDto));
+    public ResponseEntity<JwtToken> reissue(@RequestBody TokenRequestDto tokenRequestDto, HttpServletResponse response) {
+        JwtToken jwtToken = authService.reissue(tokenRequestDto);
+
+        // Set refreshToken as HttpOnly cookie
+        Cookie refreshTokenCookie = new Cookie("refreshToken", jwtToken.getRefreshToken());
+        refreshTokenCookie.setPath("/");
+        refreshTokenCookie.setHttpOnly(true);
+        refreshTokenCookie.setSecure(true); // Ensure this is true in production over HTTPS
+        refreshTokenCookie.setMaxAge(7 * 24 * 60 * 60); // Set expiry time as required
+
+        response.addCookie(refreshTokenCookie);
+        return ResponseEntity.ok(jwtToken);
     }
 
     @PostMapping("/logout")

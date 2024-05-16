@@ -1,7 +1,7 @@
 package com.hallymfestival.HallymFestival2024BackEnd.global.config;
 
-import com.hallymfestival.HallymFestival2024BackEnd.global.jwt.JwtAuthenticationFilter;
-import com.hallymfestival.HallymFestival2024BackEnd.global.jwt.JwtTokenProvider;
+import com.hallymfestival.HallymFestival2024BackEnd.domain.jwt.JwtAuthenticationFilter;
+import com.hallymfestival.HallymFestival2024BackEnd.domain.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

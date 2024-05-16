@@ -58,18 +58,10 @@ public class CommunityController {
 //    }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<CommunityResponseDto> removeCommunity(@PathVariable long id, @RequestParam String password) {
-        // 1차 패스워드 일치 여부 확인.
-        boolean isOk = communityService.isCorrectPassword(id, password);
+    public ResponseEntity<CommunityResponseDto> removeCommunity(@PathVariable long id) {
         CommunityResponseDto response = new CommunityResponseDto();
 
-        if (!isOk) {
-            response.setCode("401");
-            response.setMessage("비밀번호가 일치하지 않습니다.");
-            return ResponseEntity.badRequest().body(response);
-        }
-
-        boolean isDelete = communityService.deleteCommunity(id, password);
+        boolean isDelete = communityService.deleteAdminCommunity(id);
         //boolean isDelete = true;
 
         if (!isDelete) {

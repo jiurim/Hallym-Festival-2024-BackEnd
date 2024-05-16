@@ -5,6 +5,7 @@ import com.hallymfestival.HallymFestival2024BackEnd.domain.manager.repository.Ma
 import com.hallymfestival.HallymFestival2024BackEnd.domain.manager.repository.RefreshTokenRepository;
 import com.hallymfestival.HallymFestival2024BackEnd.domain.manager.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.servlet.http.HttpServletRequest;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class ManagerService {
 
@@ -37,6 +39,7 @@ public class ManagerService {
         // refreshToken 삭제
         refreshTokenRepository.deleteByKey(String.valueOf(SecurityUtil.getLoginMember()))
                 .orElseThrow(() -> new RuntimeException("로그인 유저 정보가 없습니다."));
+        log.info("refresh 토큰 삭제됨");
     }
 
 

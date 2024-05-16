@@ -1,24 +1,18 @@
 package com.hallymfestival.HallymFestival2024BackEnd.global.config;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.hallymfestival.HallymFestival2024BackEnd.global.jwt.JwtAccessDeniedHandler;
-import com.hallymfestival.HallymFestival2024BackEnd.global.jwt.JwtAuthenticationEntryPoint;
-import com.hallymfestival.HallymFestival2024BackEnd.global.jwt.JwtAuthenticationFilter;
-import com.hallymfestival.HallymFestival2024BackEnd.global.jwt.JwtTokenProvider;
+import com.hallymfestival.HallymFestival2024BackEnd.domain.jwt.JwtAccessDeniedHandler;
+import com.hallymfestival.HallymFestival2024BackEnd.domain.jwt.JwtAuthenticationEntryPoint;
+import com.hallymfestival.HallymFestival2024BackEnd.domain.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -50,7 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 //HttpServletRequest를 사용하는 요청들에 대한 접근 제한 설정.
-                .antMatchers("/api/admin/community", "/api/admin/notice", "/api/admin/find").hasRole("ADMIN")
+                //.antMatchers("/api/admin/community", "/api/admin/notice", "/api/admin/find").hasRole("ADMIN")
                 //위 주소는 관리자만 접근
                 .antMatchers("/**").permitAll()
                 .antMatchers("/api/admin/login").permitAll()
@@ -69,6 +63,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("http://43.202.160.134:8081/api/hc").permitAll()
                 .antMatchers("http://3.39.62.170").permitAll()
                 .antMatchers("http://13.209.218.51").permitAll()
+                .antMatchers("http:localhost:8080/admin").permitAll()
                 //위 api는 인증 없이 접근 허용
 
                 .and()
