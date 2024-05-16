@@ -36,7 +36,7 @@ public class FindRestController {
         return ResponseEntity.ok().body(findList);
     }
 
-    //분실물 내용 수정
+    //분실물 내용 수정.
 //    @PutMapping("/{id}")
 //    public ResponseEntity<FindApiResponse> updateFind(@PathVariable long id,
 //                                                      @RequestParam("image") MultipartFile image,
