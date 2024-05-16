@@ -25,22 +25,14 @@ public class ReservationEntity {
     private int phone_number;
     @Column(nullable = false)
     private int people_count;
+    //데이터가 들어간 시점 즉 예약 신청완료 후 DB저장된 시간
     @Column(nullable = false)
     private LocalDateTime reg_date;
-    //데이터가 들어간 시점 즉 예약 신청완료 후 DB저장된 시간
-    private int quantity;
-
+    // 예약 성공여부
+    @Column(nullable = false)
     private boolean success;
 
-    public ReservationEntity(Long id, int quantity) {
-        this.id = id;
-        this.quantity = quantity;
-    }
 
-    public void decrease() {
-        if (this.quantity == 0) {
-            throw new RuntimeException("예약이 꽉 찼습니다..");
-        }
-        this.quantity--;
-    }
+
+
 }
