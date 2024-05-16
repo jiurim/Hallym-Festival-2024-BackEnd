@@ -44,7 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 //HttpServletRequest를 사용하는 요청들에 대한 접근 제한 설정.
-                .antMatchers("/api/admin/community", "/api/admin/notice", "/api/admin/find").hasRole("ADMIN")
+                .antMatchers("http://hallym-festival-admin.com","http://localhost:8080/admin","/api/admin/community/{id}", "/api/admin/notice/create", "/api/admin/notice/{id}", "/api/admin/find/create","/api/admin/find/{id}").hasRole("ADMIN")
                 //위 주소는 관리자만 접근
                 .antMatchers("http://13.209.218.51/api/env").permitAll()
                 .antMatchers("http://13.209.218.51/api/hc").permitAll()
@@ -60,7 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("http://43.202.160.134:8081/api/hc").permitAll()
                 .antMatchers("http://3.39.62.170").permitAll()
                 .antMatchers("http://13.209.218.51").permitAll()
-                .antMatchers("http://hallym-festival-admin.com").permitAll()
+                .antMatchers("http://localhost:8080").permitAll()
                 //위 api는 인증 없이 접근 허용
 
                 .and()

@@ -21,7 +21,7 @@ public class AdminFindRestController {
 
     private final FindServiceImpl findService;
     //분실물 등록
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<String> addFind(@RequestParam("image") MultipartFile image,
                                           @RequestParam("name") String name,
                                           @RequestParam("location") String location) throws IOException {

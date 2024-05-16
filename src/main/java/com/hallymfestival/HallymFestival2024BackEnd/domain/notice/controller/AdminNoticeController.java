@@ -18,7 +18,7 @@ public class AdminNoticeController {
         this.noticeService=noticeService;
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<NoticeDto> createNotice(@RequestBody NoticeDto noticeDto){
         NoticeDto newNotice = noticeService.createNotice(noticeDto);
         return ResponseEntity.ok().body(newNotice);
