@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Service
@@ -21,12 +22,6 @@ public class RerservationServiceImpl implements ReservationService {
 
     @Autowired
     private ReservationRepository reservationRepository;
-
-    @Override
-    @Transactional(readOnly = true)
-    public int getReservationTotalCount() {
-        return reservationRepository.countBy();
-    }
 
     @Override
     @Transactional
@@ -40,9 +35,22 @@ public class RerservationServiceImpl implements ReservationService {
         reservation.setStudentId(reservationSaveDto.getStudentId());
         reservation.setPeople_count(reservationSaveDto.getPeople_count());
         reservation.setPhone_number(reservationSaveDto.getPhone_number());
-        reservation.setReg_date(new Date());
+        reservation.setReg_date(LocalDateTime.now());
 
         return reservationRepository.save(reservation);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public int getReservationTotalCount() {
+        return reservationRepository.countBy();
+    }
+
+    @Transactional
+    public void decrease(Long id){
+        ReservationEntity reservationEntity = reservationRepository.getById(id);
+        reservationEntity.decrease();
+        reservationRepository.saveAndFlush(reservationEntity);
     }
 
     @Override

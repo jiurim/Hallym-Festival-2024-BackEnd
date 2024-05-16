@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 public class ReservationRequestDto {
+    private Long id;
     private int people_count;
     private String studentId;
     private String name;
