@@ -51,8 +51,10 @@ public class ReservationController {
 //    }
 
     @PostMapping("/reservationdetail")
-    public void insertReservation(@RequestBody ReservationSaveDto reservationSaveDto) {
-        reservationService.insertReservation(reservationSaveDto);
+    public ResponseEntity<Boolean> insertReservation(@RequestBody ReservationSaveDto reservationSaveDto) {
+        boolean result = reservationService.insertReservation(reservationSaveDto);
+        Boolean resultObject = Boolean.valueOf(result); // Convert primitive boolean to Boolean object
+        return ResponseEntity.ok(resultObject);
     }
 
 }
