@@ -31,8 +31,4 @@ public class ReservationEntity {
     // 예약 성공여부
     @Column(nullable = false)
     private boolean success;
-
-
-
-
 }
