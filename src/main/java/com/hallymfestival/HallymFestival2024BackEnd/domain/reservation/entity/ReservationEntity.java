@@ -37,7 +37,7 @@ public class ReservationEntity {
 
     public void decrease() {
         if (this.quantity == 0) {
-            throw new RuntimeException("예약이 꽉 찼습니다.");
+            throw new RuntimeException("예약이 꽉 찼습니다..");
         }
         this.quantity--;
     }
