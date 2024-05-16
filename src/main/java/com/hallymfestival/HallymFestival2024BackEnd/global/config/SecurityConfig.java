@@ -47,7 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //.antMatchers("/api/admin/community", "/api/admin/notice", "/api/admin/find").hasRole("ADMIN")
                 //위 주소는 관리자만 접근
                 .antMatchers("/**").permitAll()
-                .antMatchers("/api/admin/login").permitAll()
+                .antMatchers("http://13.209.218.51/api/admin/login").permitAll()
                 .antMatchers("api/admin/sign_up").permitAll()
                 .antMatchers("http://13.209.218.51/api/env").permitAll()
                 .antMatchers("http://13.209.218.51/api/hc").permitAll()

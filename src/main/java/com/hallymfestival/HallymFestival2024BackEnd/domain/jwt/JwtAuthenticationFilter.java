@@ -1,12 +1,16 @@
 package com.hallymfestival.HallymFestival2024BackEnd.domain.jwt;
 
 import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 import javax.servlet.FilterChain;
@@ -85,3 +89,55 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         return null;
     }
 }
+
+
+
+//@Slf4j
+//@RequiredArgsConstructor
+//
+//public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
+//    public static final String AUTHORIZATION_HEADER = "Authorization";
+//    public static final String BEARER_PREFIX = "Bearer ";
+//
+//    private final JwtTokenProvider jwtTokenProvider;
+//
+//    // 실제 필터링 로직은 doFilterInternal 에 들어감
+//    // JWT 토큰의 인증 정보를 현재 쓰레드의 SecurityContext 에 저장하는 역할 수행
+//
+//    public JwtAuthenticationFilter(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider) {
+//        this.setAuthenticationManager(authenticationManager);
+//        this.jwtTokenProvider = jwtTokenProvider;
+//        this.setFilterProcessesUrl("/api/admin/login"); // 원하는 URL로 설정해야 작동합니다.
+//    }
+//
+//    @Override
+//    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
+//        String jwt = resolveToken(request);
+//
+//        if (StringUtils.hasText(jwt) && jwtTokenProvider.validateToken(jwt)) {
+//            Authentication authentication = jwtTokenProvider.getAuthentication(jwt);
+//            return getAuthenticationManager().authenticate(authentication);
+//        } else {
+//            throw new JwtException("유효하지 않은 JWT 토큰입니다.");
+//        }
+//    }
+//
+//    @Override
+//    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
+//        SecurityContextHolder.getContext().setAuthentication(authResult);
+//        chain.doFilter(request, response);
+//    }
+//
+//    // Request Header 에서 토큰 정보를 꺼내오기
+//    public String resolveToken(HttpServletRequest request) {
+//        String bearerToken = request.getHeader(AUTHORIZATION_HEADER);
+//        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER_PREFIX)) {
+//            return bearerToken.substring(7);
+//        }
+//        return null;
+//    }
+//}
+
+
+
+
