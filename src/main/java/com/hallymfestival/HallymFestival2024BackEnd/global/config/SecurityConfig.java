@@ -47,8 +47,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //.antMatchers("/api/admin/community", "/api/admin/notice", "/api/admin/find").hasRole("ADMIN")
                 //위 주소는 관리자만 접근
                 .antMatchers("/**").permitAll()
-                .antMatchers("http://13.209.218.51/api/admin/login").permitAll()
-                .antMatchers("api/admin/sign_up").permitAll()
                 .antMatchers("http://13.209.218.51/api/env").permitAll()
                 .antMatchers("http://13.209.218.51/api/hc").permitAll()
                 .antMatchers("http://3.39.62.170/api/env").permitAll()
@@ -64,6 +62,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("http://3.39.62.170").permitAll()
                 .antMatchers("http://13.209.218.51").permitAll()
                 .antMatchers("http:localhost:8080/admin").permitAll()
+                .antMatchers("http:hallym-festival-admin.com").permitAll()
                 //위 api는 인증 없이 접근 허용
 
                 .and()
