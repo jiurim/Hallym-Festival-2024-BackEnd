@@ -30,6 +30,8 @@ public class ReservationEntity {
     //데이터가 들어간 시점 즉 예약 신청완료 후 DB저장된 시간
     private int quantity;
 
+    private boolean success;
+
     public ReservationEntity(Long id, int quantity) {
         this.id = id;
         this.quantity = quantity;
