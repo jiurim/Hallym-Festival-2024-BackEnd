@@ -34,11 +34,9 @@ public class ReservationServiceImpl implements ReservationService {
         Long currentId = reservation.getId();
         if(currentId<=100){
             reservation.setSuccess(true);
-            reservationRepository.save(reservation);
             return true;
         }else {
             reservation.setSuccess(false);
-            reservationRepository.save(reservation);
             return false;
         }
     }
