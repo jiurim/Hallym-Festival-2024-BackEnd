@@ -6,6 +6,8 @@ import com.hallymfestival.HallymFestival2024BackEnd.domain.find.service.FindServ
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -31,9 +33,19 @@ public class AdminFindRestController {
         return ResponseEntity.ok("분실물 등록 완료");
     }
 
-    //분실물 목록 불러오기
     @GetMapping
     public ResponseEntity<List<FindApiResponse>> getBoardList() {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication != null && authentication.isAuthenticated()) {
+        // 토큰이 있음을 로그로 찍음
+            System.out.println("토큰이 존재함!");
+        } else {
+        // 토큰이 없음을 로그로 찍음
+        System.out.println("토큰이 존재하지 않음!");
+        }
+
         List<FindApiResponse> findList = findService.getList();
         return ResponseEntity.ok().body(findList);
     }
