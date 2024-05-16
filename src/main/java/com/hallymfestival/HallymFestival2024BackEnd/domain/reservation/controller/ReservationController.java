@@ -5,6 +5,7 @@ import com.hallymfestival.HallymFestival2024BackEnd.domain.reservation.dto.Reser
 import com.hallymfestival.HallymFestival2024BackEnd.domain.reservation.dto.ReservationSaveDto;
 import com.hallymfestival.HallymFestival2024BackEnd.domain.reservation.service.ReservationService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -51,9 +52,16 @@ public class ReservationController {
 //    }
 
     @PostMapping("/reservationdetail")
-    public String insertReservation(@RequestBody ReservationSaveDto reservationSaveDto) {
-        reservationService.insertReservation(reservationSaveDto);
-        return "예약성공!";
+    public ResponseEntity<Boolean> insertReservation(@RequestBody ReservationSaveDto reservationSaveDto) {
+        boolean result = reservationService.insertReservation(reservationSaveDto);
+        Boolean resultObject = Boolean.valueOf(result); // Convert primitive boolean to Boolean object
+
+        if (result) {
+            return ResponseEntity.ok(resultObject);
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(resultObject);
+        }
+
     }
 
 }
