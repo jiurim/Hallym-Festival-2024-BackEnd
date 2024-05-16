@@ -22,9 +22,26 @@ public class RerservationServiceImpl implements ReservationService {
     @Autowired
     private ReservationRepository reservationRepository;
 
+//    @Override
+//    @Transactional
+//    public ReservationEntity insertReservation(ReservationSaveDto reservationSaveDto) {
+//        if (getReservationTotalCount() > 100) {
+//            throw new RuntimeException("Reservation limit exceeded");
+//        }
+//
+//        ReservationEntity reservation = new ReservationEntity();
+//        reservation.setName(reservationSaveDto.getName());
+//        reservation.setStudentId(reservationSaveDto.getStudentId());
+//        reservation.setPeople_count(reservationSaveDto.getPeople_count());
+//        reservation.setPhone_number(reservationSaveDto.getPhone_number());
+//        reservation.setReg_date(LocalDateTime.now());
+//
+//        return reservationRepository.save(reservation);
+//    }
+
     @Override
     @Transactional
-    public ReservationEntity insertReservation(ReservationSaveDto reservationSaveDto) {
+    public boolean insertReservation(ReservationSaveDto reservationSaveDto) {
         if (getReservationTotalCount() > 100) {
             throw new RuntimeException("Reservation limit exceeded");
         }
@@ -35,9 +52,15 @@ public class RerservationServiceImpl implements ReservationService {
         reservation.setPeople_count(reservationSaveDto.getPeople_count());
         reservation.setPhone_number(reservationSaveDto.getPhone_number());
         reservation.setReg_date(LocalDateTime.now());
-
-        return reservationRepository.save(reservation);
+        reservationRepository.save(reservation);
+        Long currentId = reservation.getId();
+        if(currentId<=100){
+            return false;
+        }else {
+            return true;
+        }
     }
+
 
     @Override
     @Transactional(readOnly = true)
