@@ -5,6 +5,7 @@ import com.hallymfestival.HallymFestival2024BackEnd.domain.find.dto.FindApiRespo
 import com.hallymfestival.HallymFestival2024BackEnd.domain.find.service.FindServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -13,7 +14,8 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/find")
+@RequestMapping("/api/admin/find")
+@PreAuthorize("hasRole('admin')")
 public class FindRestController {
     private final FindServiceImpl findService;
     //분실물 등록
