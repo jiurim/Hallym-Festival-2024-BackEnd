@@ -8,9 +8,7 @@ import java.util.Set;
 
 @Entity
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
-@Builder
+@NoArgsConstructor
 @Table(name = "manager")
 public class Manager {
     @Id
@@ -24,18 +22,13 @@ public class Manager {
     @Column(nullable = false)
     private String password;
 
-    @ManyToMany
-    @JoinTable(
-        name = "manager_authority",
-        joinColumns = @JoinColumn(name = "manager_id", referencedColumnName = "id"),
-        inverseJoinColumns = @JoinColumn(name = "authority_status", referencedColumnName = "authority_status")
-    )
-    private Set<Authority> authorities = new HashSet<>();
+    @Enumerated(EnumType.STRING)
+    private Authority authority;
 
     @Builder
-    public Manager(String username, String password, Set<Authority> authorities) {
+    public Manager(String username, String password, Authority authority){
         this.username = username;
         this.password = password;
-        this.authorities = authorities;
+        this.authority = authority;
     }
 }

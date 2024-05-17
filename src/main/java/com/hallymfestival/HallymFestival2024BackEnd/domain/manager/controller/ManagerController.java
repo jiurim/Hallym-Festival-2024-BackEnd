@@ -1,12 +1,10 @@
 package com.hallymfestival.HallymFestival2024BackEnd.domain.manager.controller;
 
-import com.hallymfestival.HallymFestival2024BackEnd.domain.community.dto.CommunityResponseDto;
 import com.hallymfestival.HallymFestival2024BackEnd.domain.manager.dto.JwtToken;
 import com.hallymfestival.HallymFestival2024BackEnd.domain.manager.dto.ManagerRequestDto;
 import com.hallymfestival.HallymFestival2024BackEnd.domain.manager.dto.ManagerResponseDto;
 import com.hallymfestival.HallymFestival2024BackEnd.domain.manager.dto.TokenRequestDto;
 import com.hallymfestival.HallymFestival2024BackEnd.domain.manager.service.AuthService;
-import com.hallymfestival.HallymFestival2024BackEnd.domain.manager.service.ManagerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
