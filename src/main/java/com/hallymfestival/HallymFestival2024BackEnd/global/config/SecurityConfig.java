@@ -2,7 +2,9 @@ package com.hallymfestival.HallymFestival2024BackEnd.global.config;
 
 import com.hallymfestival.HallymFestival2024BackEnd.domain.jwt.JwtAccessDeniedHandler;
 import com.hallymfestival.HallymFestival2024BackEnd.domain.jwt.JwtAuthenticationEntryPoint;
+import com.hallymfestival.HallymFestival2024BackEnd.domain.jwt.JwtAuthenticationFilter;
 import com.hallymfestival.HallymFestival2024BackEnd.domain.jwt.JwtTokenProvider;
+import io.jsonwebtoken.Jwt;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +15,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -22,15 +26,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final JwtTokenProvider jwtTokenProvider;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
+    private final CorsConfig corsConfig;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception{
+        httpSecurity
                 .httpBasic().disable()
                 .csrf().disable()
                 .sessionManagement()
@@ -67,7 +72,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf()
                 .ignoringAntMatchers("/**")
                 .ignoringAntMatchers("/api/admin/login")
-                .ignoringAntMatchers("/api/admin/sign_up");
+                .ignoringAntMatchers("/api/admin/sign_up")
                 //csrf 무시
+
+                .and()
+                .addFilter(corsConfig.corsFilter())
+                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),
+                        UsernamePasswordAuthenticationFilter.class);
+        return httpSecurity.build();
     }
 }
