@@ -52,6 +52,7 @@ public class SecurityConfig{
                 .antMatchers("/api/env", "/api/hc").permitAll()
                 .antMatchers("/api/admin/login").permitAll()
                 .antMatchers("/api/**").permitAll()
+                .antMatchers("https://hallym-festival-admin.com/").permitAll()
                 .mvcMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .antMatchers("/**").permitAll()
 
