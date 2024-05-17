@@ -17,6 +17,12 @@
                     .allowCredentials(true) // 쿠키 인증 요청 허용
                     //.allowedOriginPatterns("*") //추가한 부분
                     .maxAge(3000); // 원하는 시간만큼 pre-flight 리퀘스트를 캐싱2
+
+
+            registry.addMapping("/admin/**")
+                    .allowedOrigins("http://hallym-festival-admin.com")
+                    .allowedMethods("GET", "POST","DELETE","PUT")
+                    .allowCredentials(true);
         }
 //
 
