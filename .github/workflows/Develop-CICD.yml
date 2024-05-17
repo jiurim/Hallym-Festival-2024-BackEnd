@@ -87,10 +87,10 @@ jobs:
       # 대상 IP를 설정
       - name: Set target IP (DEVELOP)
         run: |
-          STATUS=$(curl -o /dev/null -w "%{http_code}" "http://${{ secrets.DEVELOP_EC2_IP }}/api/env")
+          STATUS=$(curl -o /dev/null -w "%{http_code}" "https://${{ secrets.DEVELOP_NGINX_DOMAIN }}/api/env")
           echo $STATUS
           if [ $STATUS = 200 ]; then
-            CURRENT_UPSTREAM=$(curl -s "http://${{ secrets.DEVELOP_EC2_IP }}/api/env")
+            CURRENT_UPSTREAM=$(curl -s "https://${{ secrets.DEVELOP_NGINX_DOMAIN }}/api/env")
           else
             CURRENT_UPSTREAM=green
           fi
@@ -124,7 +124,7 @@ jobs:
       - name: Check deploy server URL (DEVELOP)
         uses: jtalk/url-health-check-action@v3
         with:
-          url: http://${{ secrets.DEVELOP_EC2_IP }}:${{env.STOPPED_PORT}}/api/env
+          url: https://${{ secrets.DEVELOP_NGINX_DOMAIN }}:${{env.STOPPED_PORT}}/api/env
           max-attempts: 5
           retry-delay: 10s
 
