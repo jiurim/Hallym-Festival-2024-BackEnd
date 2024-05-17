@@ -139,7 +139,7 @@ jobs:
       - name: Check deploy server URL (MAIN)
         uses: jtalk/url-health-check-action@v3
         with:
-          url: http://${{ secrets.MAIN_SPRING_EC2_1_IP }}:${{env.STOPPED_PORT}}/api/env
+          url: http://${{ secrets.MAIN_SPRING_EC2_1_IP }}:${{env.STOPPED_PORT1}}/api/env
           max-attempts: 5
           retry-delay: 10s
 
