@@ -13,7 +13,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -29,7 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-     @Override
+    @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .httpBasic().disable()
@@ -44,9 +47,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .and()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.OPTIONS,"/**/*").permitAll()
                 //HttpServletRequest를 사용하는 요청들에 대한 접근 제한 설정.
-                //.antMatchers("/api/admin/community/{id}", "/api/admin/notice/create", "/api/admin/notice/{id}", "/api/admin/find/create", "/api/admin/find/{id}").hasRole("ADMIN")
+                //.antMatchers("/api/admin/community", "/api/admin/notice", "/api/admin/find").hasRole("ADMIN")
                 //위 주소는 관리자만 접근
                 .antMatchers("/**").permitAll()
                 .antMatchers("/api/admin/login").permitAll()
@@ -65,8 +67,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("http://43.202.160.134:8081/api/hc").permitAll()
                 .antMatchers("http://3.39.62.170").permitAll()
                 .antMatchers("http://13.209.218.51").permitAll()
-                .antMatchers("https://hallym-festival.com").permitAll()
-                //위 api는 인증 없이 접근 허용.
+                //위 api는 인증 없이 접근 허용
 
                 .and()
                 .csrf()
