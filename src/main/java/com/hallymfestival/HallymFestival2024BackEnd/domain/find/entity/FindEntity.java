@@ -29,7 +29,7 @@ public class FindEntity {
     private boolean is_return;
 
     @Builder
-    public FindEntity(String name, String point, String location,
+    public FindEntity(String name, String location,
                       String image_url, LocalDateTime upload_time, boolean is_return) {
         this.name = name;
         this.location = location;

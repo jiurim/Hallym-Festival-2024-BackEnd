@@ -5,6 +5,7 @@ import com.hallymfestival.HallymFestival2024BackEnd.domain.reservation.dto.Reser
 import com.hallymfestival.HallymFestival2024BackEnd.domain.reservation.dto.ReservationSaveDto;
 import com.hallymfestival.HallymFestival2024BackEnd.domain.reservation.service.ReservationService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,14 +19,14 @@ public class ReservationController {
 
     private final ReservationService reservationService;
 
-
+    // 예약정보 불러오기
     @GetMapping("/reservationdetail")
     public ResponseEntity<Integer> getReservationTotalCount(){
         int totalCount =reservationService.getReservationTotalCount();
         return ResponseEntity.ok().body(totalCount);
     }
 
-
+    // 예약성공 확인하기
     @PostMapping("/reservationinfo")
     public ResponseEntity<ReservationRequestDto> getReservationInfo(@RequestBody ReservationRequestDto requestDto) {
         ReservationRequestDto reservationInfo;
@@ -33,27 +34,16 @@ public class ReservationController {
         return ResponseEntity.ok().body(reservationInfo);
     }
 
-
-//    @PostMapping("/reservation")
-//    public ResponseEntity<ReservationEntity> insertReservation(@RequestBody ReservationSaveDto reservationSaveDto){
-//        ReservationEntity newReservation = reservationService.insertReservation(reservationSaveDto);
-//
-//        if (newReservation == null) {
-//            return ResponseEntity.badRequest().body(null);
-//        }
-//
-//        return ResponseEntity.ok().body(newReservation);
-//    }
-
-//    @PostMapping("/reservationdetail")
-//    public void insertReservation(@RequestBody ReservationSaveDto reservationSaveDto) {
-//        reservationService.insertReservation(reservationSaveDto);
-//    }
-
+    // 예약 신청하기
     @PostMapping("/reservationdetail")
-    public String insertReservation(@RequestBody ReservationSaveDto reservationSaveDto) {
-        reservationService.insertReservation(reservationSaveDto);
-        return "예약성공!";
+    public ResponseEntity<Boolean> insertReservation(@RequestBody ReservationSaveDto reservationSaveDto) {
+        boolean result = reservationService.insertReservation(reservationSaveDto);
+        Boolean resultObject = Boolean.valueOf(result);
+        if (result) {
+            return ResponseEntity.ok(resultObject);
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(resultObject);
+        }
     }
 
 }

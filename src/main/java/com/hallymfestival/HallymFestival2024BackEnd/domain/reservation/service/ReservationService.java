@@ -9,8 +9,7 @@ import org.springframework.stereotype.Service;
 public interface ReservationService {
     int getReservationTotalCount();
 
-    //ReservationEntity insertReservation(ReservationSaveDto reservationSaveDto);
-    void insertReservation(ReservationSaveDto reservationSaveDto);
+    boolean insertReservation(ReservationSaveDto reservationSaveDto);
 
     ReservationRequestDto getReservationInfo(String studentId, String name);
 }
