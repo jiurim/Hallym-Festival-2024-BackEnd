@@ -124,7 +124,7 @@ jobs:
       - name: Check deploy server URL (DEVELOP)
         uses: jtalk/url-health-check-action@v3
         with:
-          url: https://${{ secrets.DEVELOP_NGINX_DOMAIN }}:${{env.STOPPED_PORT}}/api/env
+          url: http://${{ secrets.DEVELOP_EC2_IP }}:${{env.STOPPED_PORT}}/api/env
           max-attempts: 5
           retry-delay: 10s
 
