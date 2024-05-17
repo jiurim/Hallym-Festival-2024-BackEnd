@@ -1,4 +1,4 @@
-package com.hallymfestival.HallymFestival2024BackEnd.domain.jwt;
+package com.hallymfestival.HallymFestival2024BackEnd.domain.manager.jwt;
 
 import com.hallymfestival.HallymFestival2024BackEnd.domain.manager.dto.JwtToken;
 import io.jsonwebtoken.*;
@@ -99,15 +99,6 @@ public class JwtTokenProvider {
             log.info("JWT 토큰이 잘못되었습니다.");
         }
         return false;
-    }
-
-    public Date getExpirationDate(String token) {
-        return Jwts.parserBuilder()
-                .setSigningKey(key)
-                .build()
-                .parseClaimsJws(token)
-                .getBody()
-                .getExpiration();
     }
 
     private Claims parseClaims(String accessToken) {

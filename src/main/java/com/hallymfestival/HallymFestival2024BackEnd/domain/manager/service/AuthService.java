@@ -1,14 +1,14 @@
 package com.hallymfestival.HallymFestival2024BackEnd.domain.manager.service;
 
-import com.hallymfestival.HallymFestival2024BackEnd.domain.jwt.JwtTokenProvider;
+import com.hallymfestival.HallymFestival2024BackEnd.domain.manager.dto.TokenRequestDto;
+import com.hallymfestival.HallymFestival2024BackEnd.domain.manager.jwt.JwtTokenProvider;
 import com.hallymfestival.HallymFestival2024BackEnd.domain.manager.dto.JwtToken;
 import com.hallymfestival.HallymFestival2024BackEnd.domain.manager.dto.ManagerRequestDto;
 import com.hallymfestival.HallymFestival2024BackEnd.domain.manager.dto.ManagerResponseDto;
-import com.hallymfestival.HallymFestival2024BackEnd.domain.manager.dto.TokenRequestDto;
+import com.hallymfestival.HallymFestival2024BackEnd.domain.manager.entity.Manager;
 import com.hallymfestival.HallymFestival2024BackEnd.domain.manager.entity.RefreshToken;
 import com.hallymfestival.HallymFestival2024BackEnd.domain.manager.repository.ManagerRepository;
 import com.hallymfestival.HallymFestival2024BackEnd.domain.manager.repository.RefreshTokenRepository;
-import io.jsonwebtoken.Jwt;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -27,6 +27,15 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
     private final RefreshTokenRepository refreshTokenRepository;
+
+    @Transactional
+    public ManagerResponseDto signup(ManagerRequestDto managerRequestDto){
+        if(managerRepository.existsByUsername(managerRequestDto.getUsername())){
+            throw new RuntimeException("이미 가입되어 있는 유저 입니다.");
+        }
+        Manager manager = managerRequestDto.toManager(passwordEncoder);
+        return ManagerResponseDto.of(managerRepository.save(manager));
+    }
 
     @Transactional
     public JwtToken login(ManagerRequestDto managerRequestDto) {
@@ -54,14 +63,13 @@ public class AuthService {
 
     @Transactional
     public JwtToken reissue(TokenRequestDto tokenRequestDto){
-
-        // 1. Refresh Token 검증
         if(!jwtTokenProvider.validateToken(tokenRequestDto.getRefreshToken())){
             throw new RuntimeException("Refresh Token이 유효하지 않습니다.");
         }
+        log.info("유효성 검사 통과");
 
         // 2. Access Token에서 Manager ID 가져오기
-        Authentication authentication = jwtTokenProvider.getAuthentication(tokenRequestDto.getAccessToken());
+        Authentication authentication = jwtTokenProvider.getAuthentication(tokenRequestDto.getRefreshToken());
 
         // 3. 저장소에서 Manager ID 기반으로 Refresh Token 값 가져오기
         RefreshToken refreshToken = refreshTokenRepository.findByKey(authentication.getName())
@@ -71,6 +79,7 @@ public class AuthService {
         if (!refreshToken.getValue().equals(tokenRequestDto.getRefreshToken())){
             throw new RuntimeException("토큰의 유저 정보가 일치하지 않습니다.");
         }
+        log.info("일치됨");
 
         // 5. 새로운 토큰 생성
         JwtToken jwtToken = jwtTokenProvider.generateTokenDto(authentication);

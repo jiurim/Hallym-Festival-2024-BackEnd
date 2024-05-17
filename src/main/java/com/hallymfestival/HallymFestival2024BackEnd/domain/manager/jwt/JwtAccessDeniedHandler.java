@@ -1,4 +1,4 @@
-package com.hallymfestival.HallymFestival2024BackEnd.domain.jwt;
+package com.hallymfestival.HallymFestival2024BackEnd.domain.manager.jwt;
 
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;

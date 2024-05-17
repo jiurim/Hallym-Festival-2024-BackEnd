@@ -1,7 +1,7 @@
-package com.hallymfestival.HallymFestival2024BackEnd.global.config;
+package com.hallymfestival.HallymFestival2024BackEnd.domain.manager.config;
 
-import com.hallymfestival.HallymFestival2024BackEnd.domain.jwt.JwtAuthenticationFilter;
-import com.hallymfestival.HallymFestival2024BackEnd.domain.jwt.JwtTokenProvider;
+import com.hallymfestival.HallymFestival2024BackEnd.domain.manager.jwt.JwtAuthenticationFilter;
+import com.hallymfestival.HallymFestival2024BackEnd.domain.manager.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -18,6 +18,6 @@ public class JwtSecurityConfig extends SecurityConfigurerAdapter<DefaultSecurity
     @Override
     public void configure(HttpSecurity http) {
         JwtAuthenticationFilter customFilter = new JwtAuthenticationFilter(jwtTokenProvider);
-        http.addFilterBefore(customFilter, UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(customFilter,UsernamePasswordAuthenticationFilter.class);
     }
 }

@@ -1,67 +1,63 @@
-package com.hallymfestival.HallymFestival2024BackEnd.global.config;
+package com.hallymfestival.HallymFestival2024BackEnd.domain.manager.config;
 
-import com.hallymfestival.HallymFestival2024BackEnd.domain.jwt.JwtAccessDeniedHandler;
-import com.hallymfestival.HallymFestival2024BackEnd.domain.jwt.JwtAuthenticationEntryPoint;
-import com.hallymfestival.HallymFestival2024BackEnd.domain.jwt.JwtAuthenticationFilter;
-import com.hallymfestival.HallymFestival2024BackEnd.domain.jwt.JwtTokenProvider;
-import io.jsonwebtoken.Jwt;
+import com.hallymfestival.HallymFestival2024BackEnd.domain.manager.config.JwtSecurityConfig;
+import com.hallymfestival.HallymFestival2024BackEnd.domain.manager.jwt.JwtAccessDeniedHandler;
+import com.hallymfestival.HallymFestival2024BackEnd.domain.manager.jwt.JwtAuthenticationEntryPoint;
+import com.hallymfestival.HallymFestival2024BackEnd.domain.manager.jwt.JwtTokenProvider;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 
 @Configuration
+@RequiredArgsConstructor
 @EnableWebSecurity
-public class SecurityConfig {
+public class SecurityConfig{
     private final JwtTokenProvider jwtTokenProvider;
-    private final CorsConfig corsConfig;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-    public SecurityConfig(JwtTokenProvider jwtTokenProvider, CorsConfig corsConfig,
-                          JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint,
-                          JwtAccessDeniedHandler jwtAccessDeniedHandler) {
-        this.jwtTokenProvider = jwtTokenProvider;
-        this.corsConfig = corsConfig;
-        this.jwtAuthenticationEntryPoint = jwtAuthenticationEntryPoint;
-        this.jwtAccessDeniedHandler = jwtAccessDeniedHandler;
-    }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity
-                .httpBasic().disable()
-                .csrf().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http.csrf().disable()
                 .exceptionHandling()
                 .authenticationEntryPoint(jwtAuthenticationEntryPoint)
                 .accessDeniedHandler(jwtAccessDeniedHandler)
+
+                .and()
+                .headers()
+                .frameOptions()
+                .sameOrigin()
+
+                .and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+
                 .and()
                 .authorizeRequests()
-                .antMatchers("/api/admin/community", "/api/admin/notice", "/api/admin/find").hasRole("ADMIN")
+                .antMatchers("/api/admin/community/create/","/api/admin/community/{id}", "/api/admin/notice/create/","/api/admin/notice/{id}", "/api/admin/find/create/", "/api/admin/find/{id}").hasRole("ADMIN")
                 .antMatchers("/api/env", "/api/hc").permitAll()
-                .antMatchers("http://localhost:8080").permitAll()
+                .antMatchers("/api/admin/login").permitAll()
+                .antMatchers("/api/admin/reissue").permitAll()
                 .antMatchers("/**").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .addFilter(corsConfig.corsFilter())
-                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
 
-        return httpSecurity.build();
+                // JwtFilter 를 addFilterBefore 로 등록했던 JwtSecurityConfig 클래스를 적용
+                .and()
+                .apply(new JwtSecurityConfig(jwtTokenProvider));
+
+        return http.build();
     }
 }
 

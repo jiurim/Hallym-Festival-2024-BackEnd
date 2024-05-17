@@ -1,4 +1,4 @@
-package com.hallymfestival.HallymFestival2024BackEnd.global.config;
+package com.hallymfestival.HallymFestival2024BackEnd.domain.manager.config;
 
 
 import org.springframework.context.annotation.Bean;
