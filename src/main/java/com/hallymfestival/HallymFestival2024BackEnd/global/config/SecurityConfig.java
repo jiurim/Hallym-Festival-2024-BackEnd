@@ -35,6 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .cors().and()
                 .httpBasic().disable()
                 .csrf().disable()
                 .sessionManagement()
@@ -50,9 +51,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //HttpServletRequest를 사용하는 요청들에 대한 접근 제한 설정.
                 //.antMatchers("/api/admin/community", "/api/admin/notice", "/api/admin/find").hasRole("ADMIN")
                 //위 주소는 관리자만 접근
+                .antMatchers("/api/**").permitAll()
+                .mvcMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .antMatchers("/**").permitAll()
                 .antMatchers("/api/admin/login").permitAll()
-                .antMatchers("api/admin/sign_up").permitAll()
                 .antMatchers("http://13.209.218.51/api/env").permitAll()
                 .antMatchers("http://13.209.218.51/api/hc").permitAll()
                 .antMatchers("http://3.39.62.170/api/env").permitAll()
