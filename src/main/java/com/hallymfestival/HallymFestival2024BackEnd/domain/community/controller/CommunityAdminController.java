@@ -26,13 +26,6 @@ public class CommunityAdminController {
         return ResponseEntity.ok().body(communityList);
      }
 
-     @PostMapping
-     public ResponseEntity<CommunityEntity> insertCommunity(@RequestBody CommunityDto communityDto) {
-        CommunityEntity newCommunity = communityService.insertCommunity(communityDto);
-
-        return ResponseEntity.ok().body(newCommunity);
-     }
-
      @DeleteMapping("/{id}")
      public ResponseEntity<CommunityResponseDto> removeCommunity(@PathVariable long id) {
         // 1차 패스워드 일치 여부 확인.
