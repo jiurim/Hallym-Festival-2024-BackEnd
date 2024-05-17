@@ -51,6 +51,8 @@ public class SecurityConfig{
                 .antMatchers("/api/env", "/api/hc").permitAll()
                 .antMatchers("/api/admin/login").permitAll()
                 .antMatchers("/api/admin/reissue").permitAll()
+                .antMatchers("https://kim-sun-woo.com").permitAll()
+                .antMatchers("https://kim-sun-woo.com/api").permitAll()
                 .antMatchers("/**").permitAll()
 
                 // JwtFilter 를 addFilterBefore 로 등록했던 JwtSecurityConfig 클래스를 적용
