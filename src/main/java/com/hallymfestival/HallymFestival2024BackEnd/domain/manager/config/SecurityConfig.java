@@ -50,7 +50,6 @@ public class SecurityConfig{
                 .antMatchers("/api/admin/community/create/","/api/admin/community/{id}", "/api/admin/notice/create/","/api/admin/notice/{id}", "/api/admin/find/create/", "/api/admin/find/{id}").hasRole("ADMIN")
                 .antMatchers("/api/env", "/api/hc").permitAll()
                 .antMatchers("/api/admin/login").permitAll()
-                .antMatchers("https://hallym-festival-admin.com/").permitAll()
                 .antMatchers("/**").permitAll()
 
                 // JwtFilter 를 addFilterBefore 로 등록했던 JwtSecurityConfig 클래스를 적용
