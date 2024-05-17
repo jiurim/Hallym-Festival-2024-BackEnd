@@ -15,7 +15,7 @@ public class ReservationLimit {
     private Long id;
 
     @Column(nullable = false)
-    private int limit;
+    private int max_limit;
 
     @Column(nullable = false)
     private int currentCount;
@@ -24,7 +24,7 @@ public class ReservationLimit {
     private Long version;
 
     public boolean canReserve(int count) {
-        return currentCount + count <= limit;
+        return currentCount + count <= max_limit;
     }
 
     public void reserve(int count) {

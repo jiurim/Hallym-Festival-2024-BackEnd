@@ -66,9 +66,6 @@ public class ReservationServiceImpl implements ReservationService {
             throw new RuntimeException("Reservation limit exceeded");
         }
 
-        reservationLimit.reserve(reservationSaveDto.getPeople_count());
-        reservationLimitRepository.save(reservationLimit);
-
         ReservationEntity reservation = new ReservationEntity();
         reservation.setName(reservationSaveDto.getName());
         reservation.setStudentId(reservationSaveDto.getStudentId());
@@ -76,29 +73,33 @@ public class ReservationServiceImpl implements ReservationService {
         reservation.setPhone_number(reservationSaveDto.getPhone_number());
         reservation.setReg_date(LocalDateTime.now());
 
+        // 예약 저장
         reservationRepository.save(reservation);
+
+        // 예약 제한 업데이트
+        reservationLimit.reserve(reservationSaveDto.getPeople_count());
+        reservationLimitRepository.save(reservationLimit);
     }
 
     @Override
     @Transactional(readOnly = true)
     public ReservationRequestDto getReservationInfo(String studentId, String name) {
         ReservationEntity reservation = reservationRepository.findByStudentIdAndName(studentId, name);
-        log.info(studentId);
-        log.info(name);
+        log.info("Student ID: {}", studentId);
+        log.info("Name: {}", name);
 
         if (reservation == null || !name.equals(reservation.getName())) {
-            log.info("디비에 없음");
-            throw new EntityNotFoundException("예약조회가 되지 않습니다.");
+            log.info("Reservation not found in the database");
+            throw new EntityNotFoundException("Reservation not found.");
         }
 
-        log.info("디비에 있음");
         ReservationRequestDto reservationRequestDto = new ReservationRequestDto();
         reservationRequestDto.setName(reservation.getName());
         reservationRequestDto.setStudentId(reservation.getStudentId());
         reservationRequestDto.setPhone_number(reservation.getPhone_number());
         reservationRequestDto.setPeople_count(reservation.getPeople_count());
 
-        log.info("반환");
+        log.info("Returning reservation info");
         return reservationRequestDto;
     }
 }
