@@ -6,6 +6,7 @@ import com.hallymfestival.HallymFestival2024BackEnd.domain.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -43,6 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .and()
                 .authorizeRequests()
+                .antMatchers(HttpMethod.OPTIONS,"/**/*").permitAll()
                 //HttpServletRequest를 사용하는 요청들에 대한 접근 제한 설정.
                 .antMatchers("/api/admin/community/{id}", "/api/admin/notice/create", "/api/admin/notice/{id}", "/api/admin/find/create", "/api/admin/find/{id}").hasRole("ADMIN")
                 //위 주소는 관리자만 접근
