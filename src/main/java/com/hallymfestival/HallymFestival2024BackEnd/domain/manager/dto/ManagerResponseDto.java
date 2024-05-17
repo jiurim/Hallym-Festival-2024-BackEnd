@@ -1,3 +1,4 @@
+
 package com.hallymfestival.HallymFestival2024BackEnd.domain.manager.dto;
 
 import com.hallymfestival.HallymFestival2024BackEnd.domain.manager.entity.Authority;
