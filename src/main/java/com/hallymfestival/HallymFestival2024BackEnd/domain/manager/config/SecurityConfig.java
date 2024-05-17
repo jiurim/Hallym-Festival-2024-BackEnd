@@ -61,6 +61,18 @@ public class SecurityConfig{
 
         return http.build();
     }
+
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+            .cors() // CORS 설정 활성화
+                .and()
+            .authorizeRequests()
+                .antMatchers("https://hallym-festival-admin.com").permitAll()
+                .and()
+            .formLogin()
+                .and()
+            .logout();
+    }
 }
 
 

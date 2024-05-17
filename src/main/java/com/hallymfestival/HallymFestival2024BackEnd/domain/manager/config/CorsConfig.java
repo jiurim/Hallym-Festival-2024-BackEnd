@@ -11,18 +11,14 @@ import org.springframework.web.filter.CorsFilter;
 public class CorsConfig {
 
     @Bean
-    public CorsFilter corsFilter() {
+    public CorsFilter corsFilter(){
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.addAllowedOrigin("https://hallym-festival-admin.com");
-        config.addAllowedHeader("Content-Type");
-        config.addAllowedHeader("Authorization");
-        config.addAllowedMethod("POST");
-        config.addAllowedMethod("GET");
-        config.addAllowedMethod("OPTIONS");
-        config.addAllowedMethod("DELETE");
-        source.registerCorsConfiguration("/**", config);
+        config.addAllowedOrigin("*");
+        config.addAllowedHeader("*");
+        config.addAllowedMethod("*");
+        source.registerCorsConfiguration("/**",config);
         return new CorsFilter(source);
     }
 }
