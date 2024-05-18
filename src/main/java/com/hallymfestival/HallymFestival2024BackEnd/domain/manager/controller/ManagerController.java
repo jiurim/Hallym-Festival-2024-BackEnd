@@ -9,10 +9,7 @@ import com.hallymfestival.HallymFestival2024BackEnd.domain.manager.service.Manag
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -27,6 +24,7 @@ public class ManagerController {
     private final ManagerService managerService;
 
     @PostMapping("/login")
+    @CrossOrigin(origins = "https://hallym-festival-admin.com", maxAge = 3600)
     public ResponseEntity<JwtToken> login(@RequestBody ManagerRequestDto managerRequestDto, HttpServletResponse response) {
         String username = managerRequestDto.getUsername();
         String password = managerRequestDto.getPassword();
