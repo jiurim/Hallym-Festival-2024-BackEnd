@@ -53,7 +53,8 @@ public class AdminFindController {
 
     //분실물 삭제
     @DeleteMapping("{id}")
-    @CrossOrigin(origins = "https://hallym-festival-admin.com", maxAge = 3600)
+    //@CrossOrigin(origins = "https://hallym-festival-admin.com", maxAge = 3600)
+    @CrossOrigin(origins = "http://localhost:8080", maxAge = 3600)
     public ResponseEntity<String> deleteFind(@PathVariable long id) {
         try {
             findService.deleteFind(id);

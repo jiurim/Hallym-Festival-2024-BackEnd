@@ -28,11 +28,10 @@ public class ManagerController {
 
     @PostMapping("/login")
     @CrossOrigin(origins = "https://hallym-festival-admin.com", maxAge = 3600)
-    public ResponseEntity<Void> login(@RequestBody ManagerRequestDto managerRequestDto, HttpServletResponse response) {
+    public ResponseEntity<JwtToken> login(@RequestBody ManagerRequestDto managerRequestDto, HttpServletResponse response) {
         String username = managerRequestDto.getUsername();
         String password = managerRequestDto.getPassword();
         JwtToken jwtToken = authService.login(managerRequestDto);
-
 
         // Set refreshToken as HttpOnly cookie
         Cookie refreshTokenCookie = new Cookie("refreshToken", jwtToken.getRefreshToken());
@@ -45,10 +44,7 @@ public class ManagerController {
 
         log.info("request username = {}, password = {}", username, password);
         log.info("jwtToken accessToken = {}, refreshToken = {}", jwtToken.getAccessToken(), jwtToken.getRefreshToken());
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("accessToken", jwtToken.getAccessToken()); // accessToken을 헤더에 추가
-        return ResponseEntity.ok().headers(headers).build();
+        return ResponseEntity.ok(jwtToken);
     }
 
     @PostMapping("/reissue")
@@ -93,8 +89,9 @@ public class ManagerController {
         return ResponseEntity.ok("로그아웃 되었습니다.");
     }
 
-    @PostMapping("/sign_up")
+    @PostMapping("/signup")
+    @CrossOrigin(origins = "https://hallym-festival-admin.com", maxAge = 3600)
     public ResponseEntity<ManagerResponseDto> signUp (@RequestBody ManagerRequestDto managerRequestDto){
-        return ResponseEntity.ok(authService.signUp(managerRequestDto));
+        return ResponseEntity.ok(authService.signup(managerRequestDto));
     }
 }

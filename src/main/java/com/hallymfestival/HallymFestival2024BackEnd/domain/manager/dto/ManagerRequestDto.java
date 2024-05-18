@@ -8,8 +8,6 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.Set;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,15 +15,15 @@ public class ManagerRequestDto {
     private String username;
     private String password;
 
-    public Manager toManager(PasswordEncoder passwordEncoder, Set<Authority> authorities){
+    public Manager toManager(PasswordEncoder passwordEncoder){
         return Manager.builder()
                 .username(username)
                 .password(passwordEncoder.encode(password))
-                .authorities(authorities)
+                .authority(Authority.ROLE_ADMIN)
                 .build();
     }
 
-    public UsernamePasswordAuthenticationToken toAuthentication() {
-        return new UsernamePasswordAuthenticationToken(username, password);
+    public UsernamePasswordAuthenticationToken toAuthentication(){
+        return new UsernamePasswordAuthenticationToken(username,password);
     }
 }

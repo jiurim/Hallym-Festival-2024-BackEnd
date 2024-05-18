@@ -44,15 +44,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().authorizeRequests()
-                .antMatchers("/*/login").permitAll()
                 .antMatchers("/**").permitAll()
+                .antMatchers("/*/login").permitAll()
+                .antMatchers("/*/signup").permitAll()
+                .antMatchers("/api/community/**").permitAll()
+                .antMatchers("/api/notice/**").permitAll()
+                .antMatchers("/api/find/**").permitAll()
+                .antMatchers("/api/reservationdetail/**").permitAll()
+                .antMatchers("/api/reservationinfo/**").permitAll()
                 .antMatchers("/api/env", "/api/hc").permitAll()
                 .antMatchers(HttpMethod.OPTIONS, "/api/admin/**").permitAll()
+                .antMatchers("/api/admin/**").hasAnyRole("ADMIN")
+                .antMatchers("/api/admin/find/**").hasAnyRole("ADMIN")
+                .antMatchers("/api/admin/notice/**").hasAnyRole("ADMIN")
+                .antMatchers("/api/admin/community/**").hasAnyRole("ADMIN")
                 .anyRequest().hasAnyRole("ADMIN")
                 .and().addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),
                         UsernamePasswordAuthenticationFilter.class);
     }
-
 }
 
 //
