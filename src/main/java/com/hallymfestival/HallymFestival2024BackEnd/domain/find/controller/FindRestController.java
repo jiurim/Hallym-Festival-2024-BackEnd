@@ -42,16 +42,16 @@ public class FindRestController {
 
 
     //분실물 삭제
-    @DeleteMapping("{id}")
-    @CrossOrigin(origins = "https://hallym-festival-admin.com", maxAge = 3600)
-    public ResponseEntity<String> deleteFind(@PathVariable long id) {
-        try {
-            findService.deleteFind(id);
-            return ResponseEntity.ok("삭제완료");
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("삭제 실패");
-        }
-    }
+//    @DeleteMapping("{id}")
+//    @CrossOrigin(origins = "https://kim-sun-woo.com", maxAge = 3600)
+//    public ResponseEntity<String> deleteFind(@PathVariable long id) {
+//        try {
+//            findService.deleteFind(id);
+//            return ResponseEntity.ok("삭제완료");
+//        } catch (Exception e) {
+//            return ResponseEntity.badRequest().body("삭제 실패");
+//        }
+//    }
 
 //    분실물 회수완료
 //    @PostMapping("{id}")
