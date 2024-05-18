@@ -19,8 +19,12 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import javax.servlet.Filter;
+import java.util.Arrays;
 
 
 @Configuration
@@ -45,14 +49,34 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().authorizeRequests()
                 .antMatchers("/*/login").permitAll()
-                .antMatchers("/api/env","api/hc").permitAll()
+                .antMatchers("/api/env", "/api/hc").permitAll()
                 .antMatchers(HttpMethod.OPTIONS, "/api/admin/**").permitAll()
-                .anyRequest().hasAnyRole("ADMIN")
-                .and().addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),
+                .antMatchers("/api/admin/find","/api/admin/community", "/api/admin/notice").hasAnyRole("ADMIN") // /api/admin/find 엔드포인트에 대한 권한 설정
+                .anyRequest().authenticated()
+                .and()
+                .cors() // CORS 설정을 활성화합니다.
+                .configurationSource(corsConfigurationSource()) // CORS 구성 정보를 제공합니다.
+                .and()
+                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),
                         UsernamePasswordAuthenticationFilter.class);
     }
 
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("https://hallym-festival-admin.com")); // 허용할 출처 설정
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE")); // 허용할 메소드 설정
+        // 필요한 경우 더 많은 설정 추가 가능
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/api/admin/find", configuration); // /api/admin/find 엔드포인트에 대한 CORS 설정 등록
+        source.registerCorsConfiguration("/api/admin/community", configuration); // /api/admin/community 경로에 대한 CORS 설정 등록
+        source.registerCorsConfiguration("/api/admin/notice", configuration); // /api/admin/notice 경로에 대한 CORS 설정 등록
+
+        return source;
+    }
 }
+
 
 //
 //@Configuration
