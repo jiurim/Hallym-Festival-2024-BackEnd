@@ -10,7 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("")
+        registry.addMapping("/")
                 .allowedOrigins("https://hallym-festival-admin.com")
                 .allowedMethods("GET", "POST", "DELETE", "PUT") // 허용할 HTTP method
                 .allowCredentials(true) // 쿠키 인증 요청 허용
