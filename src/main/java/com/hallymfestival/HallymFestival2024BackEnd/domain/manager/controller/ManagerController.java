@@ -59,7 +59,7 @@ public class ManagerController {
             return ResponseEntity
                     .status(HttpStatus.OK)
                     .header(HttpHeaders.SET_COOKIE, responseCookie.toString())
-                    .header(HttpHeaders.AUTHORIZATION, "Bearer " + reissuedToken.getAccessToken())
+                    .header(reissuedToken.getAccessToken())
                     .build();
             } else {
                 ResponseCookie responseCookie = ResponseCookie.from("refresh-token", "")
