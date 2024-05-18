@@ -48,8 +48,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().authorizeRequests()
-                .antMatchers("/*/login").permitAll()
-                .antMatchers("/api/env", "/api/hc").permitAll()
+                //.antMatchers("/*/login").permitAll()
+                .antMatchers("/api/env", "/api/hc","/api/admin/login").permitAll()
                 .antMatchers(HttpMethod.OPTIONS, "/api/admin/**").permitAll()
                 .antMatchers("/api/admin/find","/api/admin/community", "/api/admin/notice").hasAnyRole("ADMIN") // /api/admin/find 엔드포인트에 대한 권한 설정
                 .anyRequest().authenticated()
