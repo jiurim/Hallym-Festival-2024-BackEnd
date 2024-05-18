@@ -8,6 +8,9 @@ import com.hallymfestival.HallymFestival2024BackEnd.domain.manager.service.AuthS
 import com.hallymfestival.HallymFestival2024BackEnd.domain.manager.service.ManagerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,10 +28,11 @@ public class ManagerController {
 
     @PostMapping("/login")
     @CrossOrigin(origins = "https://hallym-festival-admin.com", maxAge = 3600)
-    public ResponseEntity<JwtToken> login(@RequestBody ManagerRequestDto managerRequestDto, HttpServletResponse response) {
+    public ResponseEntity<Void> login(@RequestBody ManagerRequestDto managerRequestDto, HttpServletResponse response) {
         String username = managerRequestDto.getUsername();
         String password = managerRequestDto.getPassword();
         JwtToken jwtToken = authService.login(managerRequestDto);
+
 
         // Set refreshToken as HttpOnly cookie
         Cookie refreshTokenCookie = new Cookie("refreshToken", jwtToken.getRefreshToken());
@@ -41,13 +45,47 @@ public class ManagerController {
 
         log.info("request username = {}, password = {}", username, password);
         log.info("jwtToken accessToken = {}, refreshToken = {}", jwtToken.getAccessToken(), jwtToken.getRefreshToken());
-        return ResponseEntity.ok(jwtToken);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("accessToken", jwtToken.getAccessToken());
+
+        return ResponseEntity.ok().headers(headers).build();
     }
 
     @PostMapping("/reissue")
+    @CrossOrigin(origins = "https://hallym-festival-admin.com", maxAge = 3600)
     public ResponseEntity<JwtToken> reissue(@RequestBody TokenRequestDto tokenRequestDto) {
-        return ResponseEntity.ok(authService.reissue(tokenRequestDto));
+        log.info("재발급 들어옴");
+        JwtToken reissuedToken = authService.reissue(tokenRequestDto);
+        if (reissuedToken != null) {
+            ResponseCookie responseCookie = ResponseCookie.from("refresh-token", reissuedToken.getRefreshToken())
+                    .httpOnly(true)
+                    .build();
+            HttpHeaders headers = new HttpHeaders();
+            headers.add(HttpHeaders.SET_COOKIE, responseCookie.toString());
+            headers.add("accessToken", reissuedToken.getAccessToken());
+
+            log.info("새로운 토큰 발급");
+
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .headers(headers)
+                    .build();
+        } else {
+            ResponseCookie responseCookie = ResponseCookie.from("refresh-token", "")
+                    .maxAge(0)
+                    .path("/")
+                    .build();
+            HttpHeaders headers = new HttpHeaders();
+            headers.add(HttpHeaders.SET_COOKIE, responseCookie.toString());
+
+            return ResponseEntity
+                    .status(HttpStatus.UNAUTHORIZED)
+                    .headers(headers)
+                    .build();
+        }
     }
+
 
     @PostMapping("/logout")
     public ResponseEntity<String> logout(HttpServletRequest request) {

@@ -84,6 +84,7 @@ public class AuthService {
         if (!jwtTokenProvider.validateToken(tokenRequestDto.getRefreshToken())) {
             throw new RuntimeException("Refresh Token 이 유효하지 않습니다.");
         }
+        log.info("Refresh 토큰 유효");
 
         // access Token에서 Authentication객체 가져오기
         Authentication authentication = jwtTokenProvider.getAuthentication(tokenRequestDto.getAccessToken());
