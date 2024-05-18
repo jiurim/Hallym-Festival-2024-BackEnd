@@ -13,26 +13,12 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/admin/find")
+@RequestMapping("/api/find")
 public class FindRestController {
     private final FindServiceImpl findService;
-    //분실물 등록
-    @PostMapping("/create")
-    @CrossOrigin(origins = "https://hallym-festival-admin.com", maxAge = 3600)
-    public ResponseEntity<String> addFind(@RequestParam("image") MultipartFile image,
-                                          @RequestParam("name") String name,
-                                          @RequestParam("location") String location) throws IOException {
-        FindAddRequest findAddRequest = new FindAddRequest();
-        findAddRequest.setImage(image);
-        findAddRequest.setName(name);
-        findAddRequest.setLocation(location);
-        FindApiResponse createFind = findService.addFind(findAddRequest);
-        return ResponseEntity.ok("분실물 등록 완료");
-    }
 
     //분실물 목록 불러오기
     @GetMapping
-    @CrossOrigin(origins = "https://hallym-festival-admin.com", maxAge = 3600)
     public ResponseEntity<List<FindApiResponse>> getBoardList() {
         List<FindApiResponse> findList = findService.getList();
         return ResponseEntity.ok().body(findList);
