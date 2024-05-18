@@ -14,7 +14,7 @@ import java.util.Optional;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class CommunityServiceImpl implements CommunityService{
+public class CommunityServiceImpl implements CommunityService {
     private final CommunityRepository communityRepository;
 
     @Override
@@ -47,8 +47,8 @@ public class CommunityServiceImpl implements CommunityService{
             //값이 없을 때 nosuchException 발생 할 수 있음 예외처리 필요함
             log.info("입력된 비밀번호: " + password);
             String savedPassword = community.getPassword();
-            log.info("저장된 비밀번호: " +  savedPassword);
-            if (savedPassword.equals(password) ) {
+            log.info("저장된 비밀번호: " + savedPassword);
+            if (savedPassword.equals(password)) {
                 // 일치하면 true 반환
                 log.info("일치");
                 return true;
@@ -60,27 +60,7 @@ public class CommunityServiceImpl implements CommunityService{
         return true;
     }
 
-
-
-
-
-//        if (optionalCommunity.isPresent()) {
-//            CommunityEntity community = optionalCommunity.get();
-//            //값이 없을 때 nosuchException 발생 할 수 있음 예외처리 필요함
-//            String communityPassword = community.getPassword();
-//            log.info("입력된 비밀번호: " + password);
-//            log.info("저장된 비밀번호: " + communityPassword);
-//            if (password.equalsIgnoreCase(communityPassword)) {
-//                // 일치하면 true 반환
-//                log.info("일치");
-//                return true;
-//            }
-//            return false;
-//        }
-//        return false;
-
-
-    @Override
+     @Override
     public boolean deleteCommunity(long id, String password) {
         CommunityEntity originCommunity = communityRepository.findById(id).get();
         originCommunity.setDeleteYn(true);
@@ -112,3 +92,19 @@ public class CommunityServiceImpl implements CommunityService{
         return false;
     }
 }
+
+
+//        if (optionalCommunity.isPresent()) {
+//            CommunityEntity community = optionalCommunity.get();
+//            //값이 없을 때 nosuchException 발생 할 수 있음 예외처리 필요함
+//            String communityPassword = community.getPassword();
+//            log.info("입력된 비밀번호: " + password);
+//            log.info("저장된 비밀번호: " + communityPassword);
+//            if (password.equalsIgnoreCase(communityPassword)) {
+//                // 일치하면 true 반환
+//                log.info("일치");
+//                return true;
+//            }
+//            return false;
+//        }
+//        return false;
