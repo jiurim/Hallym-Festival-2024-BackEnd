@@ -28,5 +28,8 @@ public class CommunityEntity {
 
     @Column(nullable = false)
     private boolean deleteYn;
+
+    @Column(nullable = false)
+    private String nickname;
 }
 

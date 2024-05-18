@@ -29,6 +29,7 @@ public class CommunityServiceImpl implements CommunityService{
         log.info("삭제여부 확인");
         communityEntity.setDate(LocalDateTime.now());
         log.info("작성날짜 확인");
+        communityEntity.setNickname(communityDto.getNickname());
         return communityRepository.save(communityEntity);
     }
 

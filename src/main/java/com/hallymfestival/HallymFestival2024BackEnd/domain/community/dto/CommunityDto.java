@@ -6,4 +6,5 @@ import lombok.Data;
 public class CommunityDto {
     private String content;
     private String password;
+    private String nickname;
 }
