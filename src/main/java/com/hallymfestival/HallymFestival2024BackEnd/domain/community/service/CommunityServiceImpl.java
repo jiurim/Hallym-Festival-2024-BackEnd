@@ -95,4 +95,20 @@ public class CommunityServiceImpl implements CommunityService{
 
         return false;
     }
+
+    @Override
+    public boolean delteAdminCommunity(long id) {
+        CommunityEntity originCommunity = communityRepository.findById(id).get();
+        originCommunity.setDeleteYn(true);
+
+        CommunityEntity community = communityRepository.save(originCommunity);
+
+        // 삭제로 저장한 커뮤니티가 삭제가 정상적으로 되었을경우 (deleteYn = true) 일경우
+        // true 반환, 아닐경우 false반환
+        if (community.isDeleteYn()) {
+            return true;
+        }
+
+        return false;
+    }
 }

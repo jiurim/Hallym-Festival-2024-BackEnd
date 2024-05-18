@@ -13,11 +13,12 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/find")
+@RequestMapping("/api/admin/find")
 public class FindRestController {
     private final FindServiceImpl findService;
     //분실물 등록
-    @PostMapping
+    @PostMapping("/create")
+    @CrossOrigin(origins = "https://hallym-festival-admin.com", maxAge = 3600)
     public ResponseEntity<String> addFind(@RequestParam("image") MultipartFile image,
                                           @RequestParam("name") String name,
                                           @RequestParam("location") String location) throws IOException {
@@ -31,6 +32,7 @@ public class FindRestController {
 
     //분실물 목록 불러오기
     @GetMapping
+    @CrossOrigin(origins = "https://hallym-festival-admin.com", maxAge = 3600)
     public ResponseEntity<List<FindApiResponse>> getBoardList() {
         List<FindApiResponse> findList = findService.getList();
         return ResponseEntity.ok().body(findList);
@@ -55,6 +57,7 @@ public class FindRestController {
 
     //분실물 삭제
     @DeleteMapping("{id}")
+    @CrossOrigin(origins = "https://hallym-festival-admin.com", maxAge = 3600)
     public ResponseEntity<String> deleteFind(@PathVariable long id) {
         try {
             findService.deleteFind(id);

@@ -88,6 +88,7 @@ public class ManagerController {
 
 
     @PostMapping("/logout")
+    @CrossOrigin(origins = "https://hallym-festival-admin.com", maxAge = 3600)
     public ResponseEntity<String> logout(HttpServletRequest request) {
         managerService.logout(request);
         return ResponseEntity.ok("로그아웃 되었습니다.");
