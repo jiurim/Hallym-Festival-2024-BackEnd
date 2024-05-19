@@ -50,7 +50,11 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     public ReservationRequestDto getReservationInfo(String studentId, String name) {
         ReservationEntity reservation = reservationRepository.findByStudentIdAndName(studentId, name);
+
         if (studentId != reservation.getStudentId()&& !name.equals(reservation.getName())) {
+            throw new EntityNotFoundException("예약조회가 되지 않습니다.");
+        }
+        if(reservation.getId() > 100){
             throw new EntityNotFoundException("예약조회가 되지 않습니다.");
         }
         ReservationRequestDto reservationRequestDto = new ReservationRequestDto();
