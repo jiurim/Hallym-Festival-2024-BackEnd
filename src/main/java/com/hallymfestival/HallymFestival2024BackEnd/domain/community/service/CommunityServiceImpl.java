@@ -2,6 +2,8 @@ package com.hallymfestival.HallymFestival2024BackEnd.domain.community.service;
 
 
 import com.hallymfestival.HallymFestival2024BackEnd.domain.community.dto.CommunityDto;
+import com.hallymfestival.HallymFestival2024BackEnd.domain.community.dto.CommunityDetailDto;
+import com.hallymfestival.HallymFestival2024BackEnd.domain.community.dto.CommunityResponseDto;
 import com.hallymfestival.HallymFestival2024BackEnd.domain.community.entity.CommunityEntity;
 import com.hallymfestival.HallymFestival2024BackEnd.domain.community.repository.CommunityRepository;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 @Slf4j
@@ -34,8 +37,20 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
     @Override
-    public List<CommunityEntity> getCommunityList() {
-        return communityRepository.getCommunityEntityByDeleteYnIsFalse();
+    public List<CommunityDetailDto> getCommunityList() {
+        List<CommunityEntity> communityList = communityRepository.getCommunityEntityByDeleteYnIsFalse();
+        List<CommunityDetailDto> communityDetailList = new ArrayList<>();
+
+        for (CommunityEntity community : communityList) {
+            CommunityDetailDto newCommunity = new CommunityDetailDto();
+            newCommunity.setId(community.getId());
+            newCommunity.setContent(community.getContent());
+            newCommunity.setNickname(community.getNickname());
+            newCommunity.setDate(community.getDate());
+            communityDetailList.add(newCommunity);
+        }
+
+        return communityDetailList;
     }
 
     @Override
