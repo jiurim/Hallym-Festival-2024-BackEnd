@@ -21,7 +21,11 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     @Transactional
     public boolean insertReservation(ReservationSaveDto reservationSaveDto) {
-        if (getReservationTotalCount() > 100) {
+        // 총 예약 수 가져오기
+        long totalReservations = reservationRepository.countBy();
+
+        // 예약 총 수가 130명을 초과하는지 확인
+        if (totalReservations > 130) {
             throw new RuntimeException("예약이 가득 찼습니다");
         }
         ReservationEntity reservation = new ReservationEntity();
@@ -30,24 +34,18 @@ public class ReservationServiceImpl implements ReservationService {
         reservation.setPeople_count(reservationSaveDto.getPeople_count());
         reservation.setPhone_number(reservationSaveDto.getPhone_number());
         reservation.setReg_date(LocalDateTime.now());
-        reservationRepository.save(reservation);
-        Long currentId = reservation.getId();
-        if(currentId<=130){
-            // 선착 100명
-            if(currentId<=100){
-                reservation.setSuccess(true);
-                reservationRepository.save(reservation);
-                return true;
-            }else {
-                // 대기 30명
-                reservation.setSuccess(false);
-                reservationRepository.save(reservation);
-                return false;
-            }
-        }else {
+        //reservationRepository.save(reservation);
+        //Long currentId = reservation.getId();
+        if (totalReservations < 100) {
+            reservation.setSuccess(true);
+        } else {
             reservation.setSuccess(false);
-            return false;
         }
+
+        reservationRepository.save(reservation);
+
+        // 예약 성공 여부 반환
+        return reservation.isSuccess();
     }
 
     @Override
