@@ -35,8 +35,8 @@ public class ReservationServiceImpl implements ReservationService {
         reservation.setPhone_number(reservationSaveDto.getPhone_number());
         reservation.setReg_date(LocalDateTime.now());
         //reservationRepository.save(reservation);
-        //Long currentId = reservation.getId();
-        if (totalReservations < 100) {
+        Long currentId = reservation.getId();
+        if (currentId < 100) {
             reservation.setSuccess(true);
         } else {
             reservation.setSuccess(false);
