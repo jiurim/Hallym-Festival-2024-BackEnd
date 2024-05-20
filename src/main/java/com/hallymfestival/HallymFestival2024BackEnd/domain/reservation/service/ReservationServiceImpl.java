@@ -33,11 +33,15 @@ public class ReservationServiceImpl implements ReservationService {
         reservationRepository.save(reservation);
         Long currentId = reservation.getId();
         if(currentId<=130){
+            // 선착 100명
             if(currentId<=100){
                 reservation.setSuccess(true);
+                reservationRepository.save(reservation);
                 return true;
             }else {
+                // 대기 30명
                 reservation.setSuccess(false);
+                reservationRepository.save(reservation);
                 return false;
             }
         }else {
