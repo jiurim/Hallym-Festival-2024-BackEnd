@@ -8,11 +8,11 @@ import com.hallymfestival.HallymFestival2024BackEnd.domain.manager.service.AuthS
 import com.hallymfestival.HallymFestival2024BackEnd.domain.manager.service.ManagerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 @RequiredArgsConstructor
 @RequestMapping("/api/admin")
 public class ManagerController {
+
     private final AuthService authService;
     private final ManagerService managerService;
 
@@ -43,12 +44,33 @@ public class ManagerController {
 
         log.info("request username = {}, password = {}", username, password);
         log.info("jwtToken accessToken = {}, refreshToken = {}", jwtToken.getAccessToken(), jwtToken.getRefreshToken());
-        return ResponseEntity.ok(jwtToken);
+        return ResponseEntity.ok(authService.login(managerRequestDto));
     }
 
+    //토큰 재발급
     @PostMapping("/reissue")
     public ResponseEntity<JwtToken> reissue(@RequestBody TokenRequestDto tokenRequestDto) {
-        return ResponseEntity.ok(authService.reissue(tokenRequestDto));
+        JwtToken reissuedToken = authService.reissue(tokenRequestDto);
+
+        if (reissuedToken != null) {
+            ResponseCookie responseCookie = ResponseCookie.from("refresh-token", reissuedToken.getRefreshToken())
+                    .httpOnly(true)
+                    .build();
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .header(HttpHeaders.SET_COOKIE, responseCookie.toString())
+                    .header(reissuedToken.getAccessToken())
+                    .build();
+            } else {
+                ResponseCookie responseCookie = ResponseCookie.from("refresh-token", "")
+                        .maxAge(0)
+                        .path("/")
+                        .build();
+            return ResponseEntity
+                    .status(HttpStatus.UNAUTHORIZED)
+                    .header(HttpHeaders.SET_COOKIE, responseCookie.toString())
+                    .build();
+        }
     }
 
     @PostMapping("/logout")
@@ -57,8 +79,8 @@ public class ManagerController {
         return ResponseEntity.ok("로그아웃 되었습니다.");
     }
 
-    @PostMapping("/sign_up")
+    @PostMapping("/signup")
     public ResponseEntity<ManagerResponseDto> signUp (@RequestBody ManagerRequestDto managerRequestDto){
-        return ResponseEntity.ok(authService.signUp(managerRequestDto));
+        return ResponseEntity.ok(authService.signup(managerRequestDto));
     }
 }

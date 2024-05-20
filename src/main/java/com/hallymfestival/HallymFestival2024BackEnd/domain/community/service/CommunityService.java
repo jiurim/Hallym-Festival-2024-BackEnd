@@ -13,4 +13,6 @@ public interface CommunityService {
     boolean isCorrectPassword(Long id, String password);
     boolean deleteCommunity(long id, String password);
     //관리자도 같은거 써서 삭제하면 됨
+    boolean deleteAdminCommunity(long id);
+
 }

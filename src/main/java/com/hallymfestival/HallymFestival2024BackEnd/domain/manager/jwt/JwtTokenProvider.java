@@ -1,4 +1,4 @@
-package com.hallymfestival.HallymFestival2024BackEnd.global.jwt;
+package com.hallymfestival.HallymFestival2024BackEnd.domain.manager.jwt;
 
 import com.hallymfestival.HallymFestival2024BackEnd.domain.manager.dto.JwtToken;
 import io.jsonwebtoken.*;
@@ -24,7 +24,8 @@ import java.util.stream.Collectors;
 public class JwtTokenProvider {
     private static final String AUTHORITIES_KEY = "auth";
     private static final String BEARER_TYPE = "bearer";
-    private static final long ACCESS_TOKEN_EXPIRE_TIME = 1000 * 60 * 30;            // 30분
+    private static final long ACCESS_TOKEN_EXPIRE_TIME = 4 * 24 * 60 * 60 * 1000; // 4일
+    //원래는 30분으로 해야하나 reissue가 발생하지 않는 관계로 임시로 accesstoken 늘려놓음
     private static final long REFRESH_TOKEN_EXPIRE_TIME = 1000 * 60 * 60 * 24 * 7;  // 7일
 
     private final Key key;
