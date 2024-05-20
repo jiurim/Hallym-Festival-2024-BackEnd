@@ -1,5 +1,6 @@
 package com.hallymfestival.HallymFestival2024BackEnd.domain.community.controller;
 
+import com.hallymfestival.HallymFestival2024BackEnd.domain.community.dto.CommunityDetailDto;
 import com.hallymfestival.HallymFestival2024BackEnd.domain.community.dto.CommunityDto;
 import com.hallymfestival.HallymFestival2024BackEnd.domain.community.dto.CommunityResponseDto;
 import com.hallymfestival.HallymFestival2024BackEnd.domain.community.entity.CommunityEntity;
@@ -18,8 +19,8 @@ public class CommunityController {
     private final CommunityService communityService;
 
     @GetMapping
-    public ResponseEntity<List<CommunityEntity>> getCommunityList() {
-        List<CommunityEntity> communityList = communityService.getCommunityList();
+    public ResponseEntity<List<CommunityDetailDto>> getCommunityList() {
+        List<CommunityDetailDto> communityList = communityService.getCommunityList();
 
         return ResponseEntity.ok().body(communityList);
     }

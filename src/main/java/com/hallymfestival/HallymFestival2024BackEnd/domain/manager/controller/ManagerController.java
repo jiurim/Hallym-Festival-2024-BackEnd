@@ -28,6 +28,7 @@ public class ManagerController {
     private final ManagerService managerService;
 
     @PostMapping("/login")
+    @CrossOrigin(origins = "https://hallym-festival-admin.com", maxAge = 3600)
     public ResponseEntity<JwtToken> login(@RequestBody ManagerRequestDto managerRequestDto, HttpServletResponse response) {
         String username = managerRequestDto.getUsername();
         String password = managerRequestDto.getPassword();
@@ -49,6 +50,7 @@ public class ManagerController {
 
     //토큰 재발급
     @PostMapping("/reissue")
+<<<<<<< HEAD
     public ResponseEntity<JwtToken> reissue(@RequestBody TokenRequestDto tokenRequestDto) {
         JwtToken reissuedToken = authService.reissue(tokenRequestDto);
 
@@ -71,15 +73,54 @@ public class ManagerController {
                     .header(HttpHeaders.SET_COOKIE, responseCookie.toString())
                     .build();
         }
+=======
+    @CrossOrigin(origins = "https://hallym-festival-admin.com", maxAge = 3600)
+    public ResponseEntity<Void> reissue(@RequestBody TokenRequestDto tokenRequestDto) {
+    log.info("재발급 들어옴");
+    JwtToken reissuedToken = authService.reissue(tokenRequestDto);
+    if (reissuedToken != null) {
+        ResponseCookie responseCookie = ResponseCookie.from("refresh-token", reissuedToken.getRefreshToken())
+                .httpOnly(true)
+                .build();
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.SET_COOKIE, responseCookie.toString());
+        headers.add("accessToken", reissuedToken.getAccessToken()); // 새로운 accessToken 추가
+
+        log.info("새로운 토큰 발급");
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .headers(headers)
+                .build();
+    } else {
+        ResponseCookie responseCookie = ResponseCookie.from("refresh-token", "")
+                .maxAge(0)
+                .path("/")
+                .build();
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.SET_COOKIE, responseCookie.toString());
+
+        return ResponseEntity
+                .status(HttpStatus.UNAUTHORIZED)
+                .headers(headers)
+                .build();
+>>>>>>> 7191873a7908bc9cb059d6790dc6c2f0f59a58fe
     }
+}
+
 
     @PostMapping("/logout")
+    @CrossOrigin(origins = "https://hallym-festival-admin.com", maxAge = 3600)
     public ResponseEntity<String> logout(HttpServletRequest request) {
         managerService.logout(request);
         return ResponseEntity.ok("로그아웃 되었습니다.");
     }
 
     @PostMapping("/signup")
+<<<<<<< HEAD
+=======
+    @CrossOrigin(origins = "https://hallym-festival-admin.com", maxAge = 3600)
+>>>>>>> 7191873a7908bc9cb059d6790dc6c2f0f59a58fe
     public ResponseEntity<ManagerResponseDto> signUp (@RequestBody ManagerRequestDto managerRequestDto){
         return ResponseEntity.ok(authService.signup(managerRequestDto));
     }

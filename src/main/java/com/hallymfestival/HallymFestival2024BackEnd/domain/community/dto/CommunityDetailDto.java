@@ -1,10 +1,12 @@
 package com.hallymfestival.HallymFestival2024BackEnd.domain.community.dto;
 
 import lombok.Data;
+import java.time.LocalDateTime;
 
 @Data
-public class CommunityDto {
+public class CommunityDetailDto {
+    private long id;
     private String content;
-    private String password;
+    private LocalDateTime date;
     private String nickname;
 }

@@ -1,7 +1,10 @@
 package com.hallymfestival.HallymFestival2024BackEnd.domain.manager.service;
 
 import com.hallymfestival.HallymFestival2024BackEnd.domain.manager.dto.TokenRequestDto;
+<<<<<<< HEAD
 import com.hallymfestival.HallymFestival2024BackEnd.domain.manager.jwt.JwtTokenProvider;
+=======
+>>>>>>> 7191873a7908bc9cb059d6790dc6c2f0f59a58fe
 import com.hallymfestival.HallymFestival2024BackEnd.domain.manager.dto.JwtToken;
 import com.hallymfestival.HallymFestival2024BackEnd.domain.manager.dto.ManagerRequestDto;
 import com.hallymfestival.HallymFestival2024BackEnd.domain.manager.dto.ManagerResponseDto;

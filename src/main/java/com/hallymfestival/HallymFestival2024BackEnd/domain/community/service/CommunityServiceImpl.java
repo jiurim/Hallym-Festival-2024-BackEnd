@@ -2,6 +2,8 @@ package com.hallymfestival.HallymFestival2024BackEnd.domain.community.service;
 
 
 import com.hallymfestival.HallymFestival2024BackEnd.domain.community.dto.CommunityDto;
+import com.hallymfestival.HallymFestival2024BackEnd.domain.community.dto.CommunityDetailDto;
+import com.hallymfestival.HallymFestival2024BackEnd.domain.community.dto.CommunityResponseDto;
 import com.hallymfestival.HallymFestival2024BackEnd.domain.community.entity.CommunityEntity;
 import com.hallymfestival.HallymFestival2024BackEnd.domain.community.repository.CommunityRepository;
 import lombok.RequiredArgsConstructor;
@@ -9,12 +11,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class CommunityServiceImpl implements CommunityService{
+public class CommunityServiceImpl implements CommunityService {
     private final CommunityRepository communityRepository;
 
     @Override
@@ -29,12 +32,25 @@ public class CommunityServiceImpl implements CommunityService{
         log.info("삭제여부 확인");
         communityEntity.setDate(LocalDateTime.now());
         log.info("작성날짜 확인");
+        communityEntity.setNickname(communityDto.getNickname());
         return communityRepository.save(communityEntity);
     }
 
     @Override
-    public List<CommunityEntity> getCommunityList() {
-        return communityRepository.getCommunityEntityByDeleteYnIsFalse();
+    public List<CommunityDetailDto> getCommunityList() {
+        List<CommunityEntity> communityList = communityRepository.getCommunityEntityByDeleteYnIsFalse();
+        List<CommunityDetailDto> communityDetailList = new ArrayList<>();
+
+        for (CommunityEntity community : communityList) {
+            CommunityDetailDto newCommunity = new CommunityDetailDto();
+            newCommunity.setId(community.getId());
+            newCommunity.setContent(community.getContent());
+            newCommunity.setNickname(community.getNickname());
+            newCommunity.setDate(community.getDate());
+            communityDetailList.add(newCommunity);
+        }
+
+        return communityDetailList;
     }
 
     @Override
@@ -46,8 +62,8 @@ public class CommunityServiceImpl implements CommunityService{
             //값이 없을 때 nosuchException 발생 할 수 있음 예외처리 필요함
             log.info("입력된 비밀번호: " + password);
             String savedPassword = community.getPassword();
-            log.info("저장된 비밀번호: " +  savedPassword);
-            if (savedPassword.equals(password) ) {
+            log.info("저장된 비밀번호: " + savedPassword);
+            if (savedPassword.equals(password)) {
                 // 일치하면 true 반환
                 log.info("일치");
                 return true;
@@ -59,8 +75,38 @@ public class CommunityServiceImpl implements CommunityService{
         return true;
     }
 
+     @Override
+    public boolean deleteCommunity(long id, String password) {
+        CommunityEntity originCommunity = communityRepository.findById(id).get();
+        originCommunity.setDeleteYn(true);
 
+        CommunityEntity community = communityRepository.save(originCommunity);
 
+        // 삭제로 저장한 커뮤니티가 삭제가 정상적으로 되었을경우 (deleteYn = true) 일경우
+        // true 반환, 아닐경우 false반환
+        if (community.isDeleteYn()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean delteAdminCommunity(long id) {
+        CommunityEntity originCommunity = communityRepository.findById(id).get();
+        originCommunity.setDeleteYn(true);
+
+        CommunityEntity community = communityRepository.save(originCommunity);
+
+        // 삭제로 저장한 커뮤니티가 삭제가 정상적으로 되었을경우 (deleteYn = true) 일경우
+        // true 반환, 아닐경우 false반환
+        if (community.isDeleteYn()) {
+            return true;
+        }
+
+        return false;
+    }
+}
 
 
 //        if (optionalCommunity.isPresent()) {
@@ -77,6 +123,7 @@ public class CommunityServiceImpl implements CommunityService{
 //            return false;
 //        }
 //        return false;
+<<<<<<< HEAD
 
 
     @Override
@@ -108,3 +155,5 @@ public class CommunityServiceImpl implements CommunityService{
         return false;
     }
 }
+=======
+>>>>>>> 7191873a7908bc9cb059d6790dc6c2f0f59a58fe
