@@ -1,9 +1,6 @@
 package com.hallymfestival.HallymFestival2024BackEnd.domain.notice.controller;
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 7191873a7908bc9cb059d6790dc6c2f0f59a58fe
 import com.hallymfestival.HallymFestival2024BackEnd.domain.notice.dto.NoticeDto;
 import com.hallymfestival.HallymFestival2024BackEnd.domain.notice.service.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,30 +20,21 @@ public class AdminNoticeController {
     }
 
     @PostMapping("/create")
-<<<<<<< HEAD
-=======
     @CrossOrigin(origins = "https://hallym-festival-admin.com", maxAge = 3600)
->>>>>>> 7191873a7908bc9cb059d6790dc6c2f0f59a58fe
     public ResponseEntity<NoticeDto> createNotice(@RequestBody NoticeDto noticeDto){
         NoticeDto newNotice = noticeService.createNotice(noticeDto);
         return ResponseEntity.ok().body(newNotice);
     }
 
     @GetMapping
-<<<<<<< HEAD
-=======
     @CrossOrigin(origins = "https://hallym-festival-admin.com", maxAge = 3600)
->>>>>>> 7191873a7908bc9cb059d6790dc6c2f0f59a58fe
     public ResponseEntity<List<NoticeDto>> getNotice(){
         List<NoticeDto> notices = noticeService.getNotice();
         return ResponseEntity.ok().body(notices);
     }
 
     @PutMapping("/{id}")
-<<<<<<< HEAD
-=======
     @CrossOrigin(origins = "https://hallym-festival-admin.com", maxAge = 3600)
->>>>>>> 7191873a7908bc9cb059d6790dc6c2f0f59a58fe
     public ResponseEntity<NoticeDto> update(@PathVariable Integer id, @RequestBody NoticeDto noticeDto){
         NoticeDto updatedNotice = noticeService.update(id, noticeDto);
         return ResponseEntity.ok().body(updatedNotice);

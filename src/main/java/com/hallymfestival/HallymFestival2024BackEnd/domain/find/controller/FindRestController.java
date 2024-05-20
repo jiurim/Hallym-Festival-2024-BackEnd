@@ -5,7 +5,6 @@ import com.hallymfestival.HallymFestival2024BackEnd.domain.find.dto.FindApiRespo
 import com.hallymfestival.HallymFestival2024BackEnd.domain.find.service.FindServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,22 +16,6 @@ import java.util.List;
 @RequestMapping("/api/find")
 public class FindRestController {
     private final FindServiceImpl findService;
-<<<<<<< HEAD
-
-    //분실물 등록
-//    @PostMapping
-//    public ResponseEntity<String> addFind(@RequestParam("image") MultipartFile image,
-//                                          @RequestParam("name") String name,
-//                                          @RequestParam("location") String location) throws IOException {
-//        FindAddRequest findAddRequest = new FindAddRequest();
-//       findAddRequest.setImage(image);
-//        findAddRequest.setName(name);
-//        findAddRequest.setLocation(location);
-//        FindApiResponse createFind = findService.addFind(findAddRequest);
-//        return ResponseEntity.ok("분실물 등록 완료");
-//    }
-=======
->>>>>>> 7191873a7908bc9cb059d6790dc6c2f0f59a58fe
 
     //분실물 목록 불러오기
     @GetMapping
@@ -58,8 +41,6 @@ public class FindRestController {
 //    }
 
 
-<<<<<<< HEAD
-=======
     //분실물 삭제
 //    @DeleteMapping("{id}")
 //    @CrossOrigin(origins = "https://kim-sun-woo.com", maxAge = 3600)
@@ -72,7 +53,6 @@ public class FindRestController {
 //        }
 //    }
 
->>>>>>> 7191873a7908bc9cb059d6790dc6c2f0f59a58fe
 //    분실물 회수완료
 //    @PostMapping("{id}")
 //    public ResponseEntity<String> returnTrueFind(@PathVariable long id) {

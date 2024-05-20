@@ -1,4 +1,4 @@
-package com.hallymfestival.HallymFestival2024BackEnd.domain.manager.jwt;
+package com.hallymfestival.HallymFestival2024BackEnd.global.jwt;
 
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;

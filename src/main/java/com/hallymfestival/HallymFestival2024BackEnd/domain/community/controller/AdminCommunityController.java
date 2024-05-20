@@ -17,20 +17,20 @@ import java.util.List;
 @RequestMapping("/api/admin/community")
 public class AdminCommunityController {
 
-     private final CommunityService communityService;
+    private final CommunityService communityService;
 
 
-     @GetMapping
-     @CrossOrigin(origins = "https://hallym-festival-admin.com", maxAge = 3600)
-     public ResponseEntity<List<CommunityDetailDto>> getCommunityList() {
+    @GetMapping
+    @CrossOrigin(origins = "https://hallym-festival-admin.com", maxAge = 3600)
+    public ResponseEntity<List<CommunityDetailDto>> getCommunityList() {
         List<CommunityDetailDto> communityList = communityService.getCommunityList();
 
         return ResponseEntity.ok().body(communityList);
-     }
+    }
 
-     @DeleteMapping("/{id}")
-     @CrossOrigin(origins = "https://hallym-festival-admin.com", maxAge = 3600)
-     public ResponseEntity<CommunityResponseDto> removeCommunity(@PathVariable long id) {
+    @DeleteMapping("/{id}")
+    @CrossOrigin(origins = "https://hallym-festival-admin.com", maxAge = 3600)
+    public ResponseEntity<CommunityResponseDto> removeCommunity(@PathVariable long id) {
         CommunityResponseDto response = new CommunityResponseDto();
 
         boolean isDelete = communityService.delteAdminCommunity(id);

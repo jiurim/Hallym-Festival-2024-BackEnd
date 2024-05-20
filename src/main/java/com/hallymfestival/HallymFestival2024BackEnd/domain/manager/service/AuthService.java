@@ -1,10 +1,6 @@
 package com.hallymfestival.HallymFestival2024BackEnd.domain.manager.service;
 
 import com.hallymfestival.HallymFestival2024BackEnd.domain.manager.dto.TokenRequestDto;
-<<<<<<< HEAD
-import com.hallymfestival.HallymFestival2024BackEnd.domain.manager.jwt.JwtTokenProvider;
-=======
->>>>>>> 7191873a7908bc9cb059d6790dc6c2f0f59a58fe
 import com.hallymfestival.HallymFestival2024BackEnd.domain.manager.dto.JwtToken;
 import com.hallymfestival.HallymFestival2024BackEnd.domain.manager.dto.ManagerRequestDto;
 import com.hallymfestival.HallymFestival2024BackEnd.domain.manager.dto.ManagerResponseDto;
@@ -12,6 +8,7 @@ import com.hallymfestival.HallymFestival2024BackEnd.domain.manager.entity.Manage
 import com.hallymfestival.HallymFestival2024BackEnd.domain.manager.entity.RefreshToken;
 import com.hallymfestival.HallymFestival2024BackEnd.domain.manager.repository.ManagerRepository;
 import com.hallymfestival.HallymFestival2024BackEnd.domain.manager.repository.RefreshTokenRepository;
+import com.hallymfestival.HallymFestival2024BackEnd.global.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

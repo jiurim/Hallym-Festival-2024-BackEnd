@@ -40,11 +40,11 @@ public class AdminFindController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication != null && authentication.isAuthenticated()) {
-        // 토큰이 있음을 로그로 찍음
+            // 토큰이 있음을 로그로 찍음
             System.out.println("토큰이 존재함!");
         } else {
-        // 토큰이 없음을 로그로 찍음
-        System.out.println("토큰이 존재하지 않음!");
+            // 토큰이 없음을 로그로 찍음
+            System.out.println("토큰이 존재하지 않음!");
         }
 
         List<FindApiResponse> findList = findService.getList();

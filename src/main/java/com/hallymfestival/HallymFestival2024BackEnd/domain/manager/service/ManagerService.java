@@ -34,8 +34,4 @@ public class ManagerService {
         refreshTokenRepository.deleteByKey(String.valueOf(SecurityUtil.getLoginMember()))
                 .orElseThrow(()-> new RuntimeException("로그인 유저 정보가 없습니다."));
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 7191873a7908bc9cb059d6790dc6c2f0f59a58fe
