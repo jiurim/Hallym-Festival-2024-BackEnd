@@ -25,8 +25,8 @@ public class ReservationServiceImpl implements ReservationService {
             throw new RuntimeException("예약이 가득 찼습니다");
         }
         ReservationEntity reservation = new ReservationEntity();
-        reservation.setName(reservationSaveDto.getName());
-        reservation.setStudentId(reservationSaveDto.getStudentId());
+        reservation.setStudentName(reservationSaveDto.getStudentName());
+        reservation.setStudentNum(reservationSaveDto.getStudentNum());
         reservation.setPeople_count(reservationSaveDto.getPeople_count());
         reservation.setPhone_number(reservationSaveDto.getPhone_number());
         reservation.setReg_date(LocalDateTime.now());
@@ -46,18 +46,23 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     @Transactional(readOnly = true)
     public int getReservationTotalCount() {
-        return reservationRepository.countBy();
+        if(reservationRepository.countBy() > 100){
+            return 100;
+        }
+        else {
+            return reservationRepository.countBy();
+        }
     }
 
     @Override
-    public ReservationRequestDto getReservationInfo(String studentId, String name) {
-        ReservationEntity reservation = reservationRepository.findByStudentIdAndName(studentId, name);
-        if (studentId != reservation.getStudentId()&& !name.equals(reservation.getName())) {
+    public ReservationRequestDto getReservationInfo(int studentNum, String studentName) {
+        ReservationEntity reservation = reservationRepository.findByStudentIdAndName(studentNum, studentName);
+        if (studentNum != reservation.getStudentNum() && !studentName.equals(reservation.getStudentName())) {
             throw new EntityNotFoundException("예약조회가 되지 않습니다.");
         }
         ReservationRequestDto reservationRequestDto = new ReservationRequestDto();
-        reservationRequestDto.setName(reservation.getName());
-        reservationRequestDto.setStudentId(reservation.getStudentId());
+        reservationRequestDto.setStudentName(reservation.getStudentName());
+        reservationRequestDto.setStudentNum(reservation.getStudentNum());
         reservationRequestDto.setPhone_number(reservation.getPhone_number());
         reservationRequestDto.setPeople_count(reservation.getPeople_count());
         return reservationRequestDto;

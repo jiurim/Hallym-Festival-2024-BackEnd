@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 public class ReservationRequestDto {
     private Long id;
     private int people_count;
-    private String studentId;
-    private String name;
+    private int studentNum;
+    private String StudentName;
     private int phone_number;
 }

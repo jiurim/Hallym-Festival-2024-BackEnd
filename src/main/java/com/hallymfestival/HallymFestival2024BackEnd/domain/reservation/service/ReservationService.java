@@ -11,5 +11,5 @@ public interface ReservationService {
 
     boolean insertReservation(ReservationSaveDto reservationSaveDto);
 
-    ReservationRequestDto getReservationInfo(String studentId, String name);
+    ReservationRequestDto getReservationInfo(int studentNum, String studentName);
 }
