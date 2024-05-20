@@ -41,7 +41,6 @@ public class ReservationServiceImpl implements ReservationService {
         } else {
             reservation.setSuccess(false);
         }
-
         reservationRepository.save(reservation);
         // 예약 성공 여부 반환
         return reservation.isSuccess();
