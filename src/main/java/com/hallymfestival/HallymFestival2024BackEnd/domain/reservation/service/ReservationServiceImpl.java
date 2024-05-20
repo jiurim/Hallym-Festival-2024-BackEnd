@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityNotFoundException;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Service
 @RequiredArgsConstructor
@@ -29,7 +29,7 @@ public class ReservationServiceImpl implements ReservationService {
         reservation.setStudentId(reservationSaveDto.getStudentId());
         reservation.setPeople_count(reservationSaveDto.getPeople_count());
         reservation.setPhone_number(reservationSaveDto.getPhone_number());
-        reservation.setReg_date(LocalDateTime.now());
+        reservation.setReg_date(new Date());
         reservationRepository.save(reservation);
         Long currentId = reservation.getId();
         if(currentId<=100){

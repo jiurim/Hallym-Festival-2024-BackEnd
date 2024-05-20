@@ -4,9 +4,11 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Getter
 @NoArgsConstructor
@@ -27,7 +29,8 @@ public class ReservationEntity {
     private int people_count;
     //데이터가 들어간 시점 즉 예약 신청완료 후 DB저장된 시간
     @Column(nullable = false)
-    private LocalDateTime reg_date;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date reg_date;
     // 예약 성공여부
     @Column(nullable = false)
     private boolean success;
