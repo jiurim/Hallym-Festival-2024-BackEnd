@@ -50,36 +50,36 @@ public class ManagerController {
     @PostMapping("/reissue")
     @CrossOrigin(origins = "https://hallym-festival-admin.com", maxAge = 3600)
     public ResponseEntity<Void> reissue(@RequestBody TokenRequestDto tokenRequestDto) {
-    log.info("재발급 들어옴");
-    JwtToken reissuedToken = authService.reissue(tokenRequestDto);
-    if (reissuedToken != null) {
-        ResponseCookie responseCookie = ResponseCookie.from("refresh-token", reissuedToken.getRefreshToken())
-                .httpOnly(true)
-                .build();
-        HttpHeaders headers = new HttpHeaders();
-        headers.add(HttpHeaders.SET_COOKIE, responseCookie.toString());
-        headers.add("accessToken", reissuedToken.getAccessToken()); // 새로운 accessToken 추가
+        log.info("재발급 들어옴");
+        JwtToken reissuedToken = authService.reissue(tokenRequestDto);
+        if (reissuedToken != null) {
+            ResponseCookie responseCookie = ResponseCookie.from("refresh-token", reissuedToken.getRefreshToken())
+                    .httpOnly(true)
+                    .build();
+            HttpHeaders headers = new HttpHeaders();
+            headers.add(HttpHeaders.SET_COOKIE, responseCookie.toString());
+            headers.add("accessToken", reissuedToken.getAccessToken()); // 새로운 accessToken 추가
 
-        log.info("새로운 토큰 발급");
+            log.info("새로운 토큰 발급");
 
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .headers(headers)
-                .build();
-    } else {
-        ResponseCookie responseCookie = ResponseCookie.from("refresh-token", "")
-                .maxAge(0)
-                .path("/")
-                .build();
-        HttpHeaders headers = new HttpHeaders();
-        headers.add(HttpHeaders.SET_COOKIE, responseCookie.toString());
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .headers(headers)
+                    .build();
+        } else {
+            ResponseCookie responseCookie = ResponseCookie.from("refresh-token", "")
+                    .maxAge(0)
+                    .path("/")
+                    .build();
+            HttpHeaders headers = new HttpHeaders();
+            headers.add(HttpHeaders.SET_COOKIE, responseCookie.toString());
 
-        return ResponseEntity
-                .status(HttpStatus.UNAUTHORIZED)
-                .headers(headers)
-                .build();
+            return ResponseEntity
+                    .status(HttpStatus.UNAUTHORIZED)
+                    .headers(headers)
+                    .build();
+        }
     }
-}
 
 
     @PostMapping("/logout")

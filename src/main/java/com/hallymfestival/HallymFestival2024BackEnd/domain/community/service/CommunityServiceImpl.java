@@ -75,7 +75,7 @@ public class CommunityServiceImpl implements CommunityService {
         return true;
     }
 
-     @Override
+    @Override
     public boolean deleteCommunity(long id, String password) {
         CommunityEntity originCommunity = communityRepository.findById(id).get();
         originCommunity.setDeleteYn(true);

@@ -32,4 +32,3 @@ public class CommunityEntity {
     @Column(nullable = false)
     private String nickname;
 }
-

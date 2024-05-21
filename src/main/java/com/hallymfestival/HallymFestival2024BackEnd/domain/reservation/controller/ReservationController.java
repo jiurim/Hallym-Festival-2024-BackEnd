@@ -30,7 +30,7 @@ public class ReservationController {
     @PostMapping("/reservationinfo")
     public ResponseEntity<ReservationRequestDto> getReservationInfo(@RequestBody ReservationRequestDto requestDto) {
         ReservationRequestDto reservationInfo;
-        reservationInfo = reservationService.getReservationInfo(requestDto.getStudentId(), requestDto.getName());
+        reservationInfo = reservationService.getReservationInfo(requestDto.getStudentNum(), requestDto.getStudentName());
         return ResponseEntity.ok().body(reservationInfo);
     }
 

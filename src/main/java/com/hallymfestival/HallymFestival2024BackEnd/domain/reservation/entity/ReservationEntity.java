@@ -20,9 +20,9 @@ public class ReservationEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
-    private String studentId;
+    private int studentNum;
     @Column(nullable = false)
-    private String name;
+    private String studentName;
     @Column(nullable = false)
     private int phone_number;
     @Column(nullable = false)
