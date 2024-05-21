@@ -4,6 +4,7 @@ import com.hallymfestival.HallymFestival2024BackEnd.domain.reservation.dto.Reser
 import com.hallymfestival.HallymFestival2024BackEnd.domain.reservation.dto.ReservationSaveDto;
 import com.hallymfestival.HallymFestival2024BackEnd.domain.reservation.entity.ReservationEntity;
 import com.hallymfestival.HallymFestival2024BackEnd.domain.reservation.repository.ReservationRepository;
+import com.sun.jdi.request.DuplicateRequestException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,13 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     @Transactional
     public boolean insertReservation(ReservationSaveDto reservationSaveDto) {
+        boolean isDuplicate = reservationRepository.existsReservationEntityByStudentNumAndStudentName
+                (reservationSaveDto.getStudentNum(), reservationSaveDto.getStudentName());
+
+        if (isDuplicate) {
+            throw new RuntimeException("이미 예약된 회원입니다.");
+        }
+
         // 총 예약 수 가져오기
         long totalReservations = reservationRepository.countBy();
 

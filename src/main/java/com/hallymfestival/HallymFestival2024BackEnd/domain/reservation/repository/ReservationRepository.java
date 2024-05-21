@@ -10,6 +10,7 @@ import java.util.NoSuchElementException;
 public interface ReservationRepository extends JpaRepository<ReservationEntity, Long> {
     int countBy();
     ReservationEntity findByStudentNumAndStudentName(int studentNum, String studentName);
+    boolean existsReservationEntityByStudentNumAndStudentName(int studentNum, String studentName);
 
     default ReservationEntity getById(Long id){
         return findById(id).orElseThrow(NoSuchElementException::new);
