@@ -48,5 +48,136 @@
 ## 🖇️아키텍처
 <img src="https://github.com/user-attachments/assets/e317aacc-aa9d-4a97-8cbc-78312ad7eaed"/>
 
-## 프로젝트 구조
+## 🧬 프로젝트 구조
 
+```bash
+└── 🗂 main 
+    ├── 🗂 java 
+    │   └── 🗂 com
+    │       └── 🗂 hallymfestival
+    │           └── 🗂 hallymfestival
+    │               ├── 📑 Application.java
+    │               ├── 🗂 domain
+    │               │   ├── 🗂 community
+    │               │   │   ├── 🗂 controller
+    │               │   │   │   ├── 📑 AdminCommunityController.java
+    │               │   │   │   └── 📑 CommunityController.java
+    │               │   │   ├── 🗂 dto
+    │               │   │   │   ├── 📑 CommunityDetailDto.java
+    │               │   │   │   ├── 📑 CommunityDto.java
+    │               │   │   │   └── 📑 CommunityResponseDto.java
+    │               │   │   ├── 🗂 entity
+    │               │   │   │   └── 📑 CommunityEntity.java
+    │               │   │   ├── 🗂 repository
+    │               │   │   │   └── 📑 CommunityRepository.java
+    │               │   │   └── 🗂 service
+    │               │   │       ├── 📑 CommunityService.java
+    │               │   │       └── 📑 CommunityServiceImpl.java
+    │               │   ├── 🗂 find
+    │               │   │   ├── 🗂 controller
+    │               │   │   │   ├── 📑 AdminFindController.java
+    │               │   │   │   └── 📑 FindRestController.java
+    │               │   │   ├── 🗂 dto
+    │               │   │   │   ├── 📑 FindAddRequest.java
+    │               │   │   │   └── 📑 FindApiResponse.java
+    │               │   │   ├── 🗂 entity
+    │               │   │   │   └── 📑 FindEntity.java
+    │               │   │   ├── 🗂 domain
+    │               │   │   │   └── 📑 FindRepository.java
+    │               │   │   └── 🗂 service
+    │               │   │       ├── 📑 FindService.java
+    │               │   │       ├── 📑 FindServiceImpl.java
+    │               │   │       └── 📑 S3Service.java
+    │               │   ├── 🗂 manager
+    │               │   │   ├── 🗂 controller
+    │               │   │   │   ├── 📑 ManagerController.java
+    │               │   │   │   └── 📑 WebController.java
+    │               │   │   ├── 🗂 dto
+    │               │   │   │   ├── 📑 JwtToken.java
+    │               │   │   │   ├── 📑 ManagerRequestDto.java
+    │               │   │   │   ├── 📑 ManagerResponseDto.java
+    │               │   │   │   └── 📑 TokenRequestDto.java
+    │               │   │   ├── 🗂 entity
+    │               │   │   │   ├── 📑 Authority.java
+    │               │   │   │   ├── 📑 Manager.java
+    │               │   │   │   └── 📑 RefreshToken.java
+    │               │   │   ├── 🗂 repository
+    │               │   │   │   ├── 📑 ManagerRepository.java
+    │               │   │   │   └── 📑 RefreshTokenRepository.java
+    │               │   │   └── 🗂 service
+    │               │   │       ├── 📑 AuthService.java
+    │               │   │       ├── 📑 CustomUserDetailsService.java
+    │               │   │       └── 📑 ManagerService.java
+    │               │   │   ├── 🗂 util
+    │               │   │       └── 📑 SecurityUtil.java
+    │               │   ├── 🗂 notice
+    │               │   │   ├── 🗂 controller
+    │               │   │   │   ├── 📑 AdminNoticeController.java
+    │               │   │   │   └── 📑 NoticeController.java
+    │               │   │   ├── 🗂 dto
+    │               │   │   │   └── 📑 NoticeDto.java
+    │               │   │   ├── 🗂 entity
+    │               │   │   │   └── 📑 Notice.java
+    │               │   │   ├── 🗂 repository
+    │               │   │   │   └── 📑 NoticeRepository.java
+    │               │   │   └── 🗂 service
+    │               │   │       └── 📑 NoticeService.java
+    │               │   ├── 🗂 reservation
+    │               │   │   ├── 🗂 controller
+    │               │   │   │   └── 📑 ReservationController.java
+    │               │   │   ├── 🗂 dto
+    │               │   │   │   ├── 📑 ReservationRequestDto.java
+    │               │   │   │   └── 📑 ReservationSaveDto.java
+    │               │   │   ├── 🗂 entity
+    │               │   │   │   └── 📑 ReservationEntity.java
+    │               │   │   ├── 🗂 repository
+    │               │   │   │   └── 📑 ReservationRepository.java
+    │               │   │   └── 🗂 service
+    │               │   │       ├── 📑 ReservationService.java
+    │               │   │       └── 📑 ReservationServiceImpl.java
+    │               │   └── 🗂 global
+    │               │       ├── 🗂 config
+    │               │       │   ├── 📑 SecurityConfig.java
+    │               │       │   ├── 📑 SwaggerConfig.java
+    │               │       │   └── 📑 WebConfig.java
+    │               │       ├── 🗂 jwt
+    │               │       │   ├── 📑 JwtAccessDeniedHandler.java
+    │               │       │   ├── 📑 JwtAuthenticationEntryPoint.java
+    │               │       │   ├── 📑 JwtAuthenticationFilter.java
+    │               │       │   └── 📑 JwtTokenProvider.java
+    │               │       ├── 🗂 S3
+    │               │       │   └── 📑 S3Config.java
+    │               │       └── 🗂 test
+    │               │           ├── 📑 MakeImage.java
+    │               │           └── 📑 WebTest.java
+    └── 🗂 resources
+        ├── 📑 application.yml
+        ├── 📑 application-secret.yml
+        └── 📑 Make_Resources_.txt
+```
+##
+
+## 📌 기능소개
+
+<p align="center" style="font-size: 24px;">
+    <strong>1. 관리자의 분실물 게시판을 통해 축제기간 발생한 분실물에 대한 정보를 제공</strong>
+</p>
+<p align="center">
+    <img src="https://github.com/user-attachments/assets/938ef18a-9857-42e6-b4ec-0c00d795c173" width="45%" />
+</p>
+
+<p align="center" style="font-size: 24px;">
+    <strong>2. 커뮤니티 기능을 통해 한림대 학생들만의 유대감 형성</strong>
+</p>
+<p align="center">
+    <img src="https://github.com/user-attachments/assets/f487804f-e813-4861-8c27-b27148534fac" width="45%" />
+</p>
+
+<p align="center" style="font-size: 24px;">
+    <strong>3. 주점예약 및 확인 기능을 통해 기존 방식에서 안전하게 주점을 안내</strong>
+</p>
+<p align="center">
+    <img src="https://github.com/user-attachments/assets/b05fd180-3c0b-4d16-910d-49d258c91628" width="30%" style="margin: 0 1%;" /> <br>
+    <img src="https://github.com/user-attachments/assets/8f7782b4-cc28-4921-9ff3-58231c0f186c" width="30%" style="margin: 0 1%;" />
+    <img src="https://github.com/user-attachments/assets/601f7aa6-ee62-457a-bb7d-507681aae3a4" width="30%" style="margin: 0 1%;" />
+</p>
