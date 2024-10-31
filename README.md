@@ -48,6 +48,110 @@
 ## 🖇️아키텍처
 <img src="https://github.com/user-attachments/assets/e317aacc-aa9d-4a97-8cbc-78312ad7eaed"/>
 
-## 🧬프로젝트 구조
+## 🗂 프로젝트 구조
+└── 🗂 main
+    ├── 🗂 java
+    │   └── 🗂 com
+    │       └── 🗂 hallymfestival 
+    │           └── 🗂 hallymfestival 
+    │               ├── 📑 Application.java
+    │               ├── 🗂 domain
+    │               │   ├── 🗂 community
+    │               │     ├── 🗂 controller
+    │               │       ├── 📑 AdminCommunityController
+    |               |       ├── 📑 CommunityController
+    │               │     ├── 🗂 dto
+    │               │       ├── 📑 CommunityDetailDto
+    │               │       ├── 📑 CommunityDto
+    |               |       ├── 📑 CommunityResponseDto
+    │               │     ├── 🗂 entity
+    │               │       ├── 📑 CommunityEntity
+    │               │     ├── 🗂 repository
+    │               │       ├── 📑 CommunityRepository
+    │               │     ├── 🗂 service
+    │               │       ├── 📑 CommunityService
+    │               │       ├── 📑 CommunityServiceImpl
+    │               │   ├── 🗂 find
+    │               │     ├── 🗂 controller
+    │               │       ├── 📑 AdminFindController
+    │               │       ├── 📑 FindRestController
+    │               │     ├── 🗂 dto
+    │               │       ├── 📑 FindAddRequest
+    │               │       ├── 📑 FindApiResponse
+    │               │     ├── 🗂 entity
+    │               │       ├── 📑 FindEntity
+    │               │     ├── 🗂 domain
+    │               │       ├── 📑 FindRepository
+    │               │     ├── 🗂 service
+    │               │       ├── 📑 FindService
+    │               │       ├── 📑 FindServiceImpl
+    │               │       ├── 📑 S3Service
+    │               │   ├── 🗂 manager
+    │               │     ├── 🗂 controller
+    │               │       ├── 📑 ManagerController
+    │               │       ├── 📑 WebController   
+    │               │     ├── 🗂 dto
+    │               │       ├── 📑 JwtToken
+    │               │       ├── 📑 ManagerRequestDto
+    │               │       ├── 📑 ManagerResponseDto
+    │               │       ├── 📑 TokenRequestDto
+    │               │     ├── 🗂 entity
+    │               │       ├── 📑 Authority
+    │               │       ├── 📑 Manager
+    │               │       ├── 📑 RefreshToken
+    │               │     ├── 🗂 repository
+    │               │       ├── 📑 ManagerRepository
+    │               │       ├── 📑 RefreshTokenRepository
+    │               │     ├── 🗂 service
+    │               │       ├── 📑 AuthService
+    │               │       ├── 📑 CustomUserDetailsService
+    │               │       ├── 📑 ManagerService
+    │               │     ├── 🗂 util
+    │               │       ├── 📑 SecurityUtil
+    │               │   ├── 🗂 notice
+    │               │     ├── 🗂 controller
+    │               │       ├── 📑 AdminNoticeController
+    │               │       ├── 📑 NoticeController
+    │               │     ├── 🗂 dto
+    │               │       ├── 📑 NoticeDto
+    │               │     ├── 🗂 entity
+    │               │       ├── 📑 Notice
+    │               │     ├── 🗂 repository
+    │               │       ├── 📑 NoticeRepository
+    │               │     ├── 🗂 service
+    │               │       ├── 📑 NoticeService
+    │               │   ├── 🗂 reservation
+    │               │     ├── 🗂 controller
+    │               │       ├── 📑 ReservationController
+    │               │     ├── 🗂 dto
+    │               │       ├── 📑 ReservationRequestDto
+    │               │       ├── 📑 ReservationSaveDto
+    │               │     ├── 🗂 entity
+    │               │       ├── 📑 ReservationEntity
+    │               │     ├── 🗂 repository
+    │               │       ├── 📑 ReservationRepository
+    │               │     ├── 🗂 service
+    │               │       ├── 📑 ReservationService
+    │               │       ├── 📑 ReservationServiceImpl
+    │               └── 🗂 global
+    │               │     ├── 🗂 config
+    │               │       ├── 📑 SecurityConfig
+    │               │       ├── 📑 SwaggerConfig
+    │               │       ├── 📑 WebConfig
+    │               │     ├── 🗂 jwt
+    │               │       ├── 📑 JwtAccessDeniedHandler
+    │               │       ├── 📑 JwtAuthenticationEntryPoint
+    │               │       ├── 📑 JwtAuthenticationFilter
+    │               │       ├── 📑 JwtTokenProvider
+    │               │     ├── 🗂 S3
+    │               │       ├── 📑 S3Config
+    │               │     ├── 🗂 test
+    │               │       ├── 📑 MakeImage
+    │               │       ├── 📑 WebTest
+    └── 🗂 resources
+        ├── 📑 application.yml
+        ├── 📑 application-secret.yml
+        └── 📑 Make_Resources_.txt
+
 
 
