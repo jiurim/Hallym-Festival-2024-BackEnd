@@ -20,7 +20,7 @@
 | <img width="130px" src="https://avatars.githubusercontent.com/u/114386406?v=4" /> | <img width="130px" src="https://avatars.githubusercontent.com/u/78469127?s=400&u=1cac70dfb6b29f314daee9a28120e6459a31bacd&v=4" /> |
 | 한림대학교 | 한림대학교 |
 | 빅데이터전공 3학년 | 빅데이터전공 4학년 |
-| 될때까지 시도하는 집념의 팀장 | 성공을 위해 묵묵히 개발하는 팀원 |
+| 될 때까지 시도하는 집념의 팀장 | 성공을 위해 묵묵히 개발하는 팀원 |
 | [@kimxxunu](https://github.com/Kimxxunu) | [@jiurim](https://github.com/jiurim) |
 
 ##
