@@ -14,5 +14,12 @@
 
 ##
 
+| BE | BE |
+| :---: | :---: |
+| 김선우 | 지우림 |
+| <img width="130px" src="https://avatars.githubusercontent.com/u/114386406?v=4" /> | <img width="130px" src="https://avatars.githubusercontent.com/u/78469127?s=400&u=1cac70dfb6b29f314daee9a28120e6459a31bacd&v=4" /> |
+| 한림대학교 | 한림대학교 |
+| 빅데이터전공 3학년 | 빅데이터전공 4학년 |
+| [@kimxxunu](https://github.com/Kimxxunu) | [@jiurim](https://github.com/jiurim) |
 
 
